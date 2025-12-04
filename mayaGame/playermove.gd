@@ -4,6 +4,9 @@ onready var anim = $AnimatedSprite  # Lien vers AnimatedSprite (Godot 3)
 var speed = 150.0
 var velocity = Vector2()
 
+func _ready():
+	add_to_group("player")
+
 func _physics_process(delta):
 	velocity = Vector2()
 	
