@@ -12,6 +12,7 @@ export const HeroFake = () => {
     const svgPathRef2 = useRef<SVGPathElement>(null);
     const annotationRef2 = useRef<HTMLSpanElement>(null);
     const bottomTextRef = useRef<HTMLDivElement>(null);
+    const noiseRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
@@ -75,31 +76,62 @@ export const HeroFake = () => {
             // Small pause before chaos
             tl.to({}, { duration: 1 });
 
-            // --- EXIT: Glitch & Fade ---
-            if (contentRef.current) {
-                tl.to(contentRef.current, {
-                    opacity: 0,
-                    scale: 1.1,
-                    filter: "invert(1) hue-rotate(180deg) blur(2px)",
-                    duration: 2,
-                    ease: "power2.in"
-                }, "exit");
+            // --- EXIT: System Failure (White -> Black) ---
+            tl.addLabel("systemFailure");
 
-                // Shake effect
+            // 1. Darken Background
+            tl.to(containerRef.current, {
+                backgroundColor: "#000000",
+                duration: 3,
+                ease: "power2.inOut"
+            }, "systemFailure");
+
+            // 2. Invert Text Colors to stay visible
+            if (contentRef.current) {
+                // Animate main text color
+                tl.to(contentRef.current.querySelectorAll("h1, p"), {
+                    color: "#ffffff",
+                    duration: 3,
+                    ease: "power2.inOut"
+                }, "systemFailure");
+
+                // Keep the blue text blue or make it pop
+                tl.to(contentRef.current.querySelector(".text-blue-600"), {
+                    color: "#3b82f6", // Keep it blue or change to something else
+                    duration: 3
+                }, "systemFailure");
+
+                // Glitch/Shake effect (kept but modified)
                 tl.to(contentRef.current, {
-                    x: "random(-20, 20)",
-                    y: "random(-10, 10)",
+                    scale: 1.05,
+                    filter: "blur(2px)",
+                    duration: 3,
+                    ease: "power2.in"
+                }, "systemFailure");
+
+                tl.to(contentRef.current, {
+                    x: "random(-5, 5)",
+                    y: "random(-5, 5)",
                     duration: 0.1,
-                    repeat: 20,
+                    repeat: 30,
                     yoyo: true
-                }, "exit");
+                }, "systemFailure");
+            }
+
+            // 3. Fade in Noise Overlay
+            if (noiseRef.current) {
+                tl.to(noiseRef.current, {
+                    opacity: 0.3,
+                    duration: 3,
+                    ease: "power2.in"
+                }, "systemFailure");
             }
 
             if (bottomTextRef.current) {
                 tl.to(bottomTextRef.current, {
                     opacity: 0,
                     duration: 1
-                }, "exit");
+                }, "systemFailure");
             }
 
         }, containerRef);
@@ -186,6 +218,16 @@ export const HeroFake = () => {
                 >
                     Défilez pour découvrir l'expérience ultime.
                 </div>
+
+                {/* Noise Overlay */}
+                <div
+                    ref={noiseRef}
+                    className="absolute inset-0 pointer-events-none opacity-0 z-50 mix-blend-overlay"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")`,
+                        backgroundSize: '100px 100px'
+                    }}
+                />
             </div>
         </div>
     );
