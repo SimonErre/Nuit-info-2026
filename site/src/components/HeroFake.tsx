@@ -9,6 +9,8 @@ export const HeroFake = () => {
     const contentRef = useRef<HTMLDivElement>(null);
     const svgPathRef = useRef<SVGPathElement>(null);
     const annotationRef = useRef<HTMLSpanElement>(null);
+    const svgPathRef2 = useRef<SVGPathElement>(null);
+    const annotationRef2 = useRef<HTMLSpanElement>(null);
     const bottomTextRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
@@ -17,51 +19,76 @@ export const HeroFake = () => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top top",
-                    end: "+=2000",
+                    end: "+=3000", // Increased scroll distance for better pacing
                     pin: true,
                     scrub: 1,
                 }
             });
 
-            // Action 1: Animate the SVG stroke
+            // --- VANDALISM 1: "est là" -> "ou pas" ---
             if (svgPathRef.current) {
                 const length = svgPathRef.current.getTotalLength();
                 gsap.set(svgPathRef.current, { strokeDasharray: length, strokeDashoffset: length });
                 tl.to(svgPathRef.current, {
                     strokeDashoffset: 0,
                     autoAlpha: 1,
-                    duration: 2,
+                    duration: 1,
                     ease: "power1.inOut"
                 });
             }
 
-            // Action 2: Fade/Pop in the 'ou pas' text
             if (annotationRef.current) {
                 tl.to(annotationRef.current, {
                     autoAlpha: 1,
                     scale: 1,
                     rotation: -10,
-                    duration: 1,
+                    duration: 0.5,
                     ease: "back.out(1.7)"
-                }, "-=1");
+                }, "-=0.5");
             }
 
-            // Wait a bit
+            // Small pause
+            tl.to({}, { duration: 0.5 });
+
+            // --- VANDALISM 2: "Windows 11" -> "L'Obsolescence" ---
+            if (svgPathRef2.current) {
+                const length = svgPathRef2.current.getTotalLength();
+                gsap.set(svgPathRef2.current, { strokeDasharray: length, strokeDashoffset: length });
+                tl.to(svgPathRef2.current, {
+                    strokeDashoffset: 0,
+                    autoAlpha: 1,
+                    duration: 1,
+                    ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})"
+                });
+            }
+
+            if (annotationRef2.current) {
+                tl.to(annotationRef2.current, {
+                    autoAlpha: 1,
+                    scale: 1,
+                    rotation: 5,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                }, "-=0.5");
+            }
+
+            // Small pause before chaos
             tl.to({}, { duration: 1 });
 
-            // Glitch / Exit effect
+            // --- EXIT: Glitch & Fade ---
             if (contentRef.current) {
                 tl.to(contentRef.current, {
                     opacity: 0,
                     scale: 1.1,
-                    filter: "invert(1) hue-rotate(180deg)",
+                    filter: "invert(1) hue-rotate(180deg) blur(2px)",
                     duration: 2,
                     ease: "power2.in"
                 }, "exit");
 
                 // Shake effect
                 tl.to(contentRef.current, {
-                    x: "random(-10, 10)",
+                    x: "random(-20, 20)",
+                    y: "random(-10, 10)",
                     duration: 0.1,
                     repeat: 20,
                     yoyo: true
@@ -116,8 +143,39 @@ export const HeroFake = () => {
                             ou pas
                         </span>
                     </h1>
-                    <p className="text-2xl md:text-3xl font-light text-gray-500">
-                        Plus rapide. Plus puissant. <span className="font-semibold text-blue-600">Windows 11.</span>
+                    <p className="text-2xl md:text-3xl font-light text-gray-500 mt-4">
+                        Plus rapide. Plus puissant.
+                        <span className="relative inline-block ml-2">
+                            <span className="font-semibold text-blue-600">Windows 11.</span>
+                            <svg
+                                className="absolute top-1/2 left-0 w-[120%] h-[180%] pointer-events-none overflow-visible"
+                                style={{ transform: 'translate(-10%, -50%)' }}
+                                viewBox="0 0 150 60"
+                                preserveAspectRatio="none"
+                            >
+                                <path
+                                    ref={svgPathRef2}
+                                    d="M0,30 L150,20 M10,40 L140,10"
+                                    fill="none"
+                                    stroke="#ff0000"
+                                    strokeWidth="5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="opacity-0"
+                                />
+                            </svg>
+                            <span
+                                ref={annotationRef2}
+                                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-5xl md:text-6xl text-[#ff0000] whitespace-nowrap opacity-0 z-20"
+                                style={{
+                                    fontFamily: "'Permanent Marker', cursive",
+                                    transform: 'rotate(5deg) scale(0.5) translateX(-50%)',
+                                    textShadow: '2px 2px 0px rgba(0,0,0,0.1)'
+                                }}
+                            >
+                                L'Obsolescence
+                            </span>
+                        </span>
                     </p>
                 </div>
 
