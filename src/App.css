@@ -5,3 +5,86 @@ body, .home {
   text-align: left;
   padding: 2rem;
 }
+
+.home {
+  min-height: 100vh;
+  background: #111;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.nird-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: #ffd700;
+  letter-spacing: 1px;
+}
+
+.cards-container {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+}
+
+.nird-card {
+  width: 260px;
+  min-height: 120px;
+  background: rgba(34,34,34,0.95);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #0008;
+  border: 2px solid #ffd700;
+  padding: 1.2rem 1rem;
+  color: #fff;
+  z-index: 2;
+  transition: transform 0.2s;
+  cursor: pointer;
+  animation: cardIn 0.8s both;
+}
+
+.nird-card h2 {
+  font-size: 1.3rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.nird-card p {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
+}
+
+.nird-card:hover {
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 8px 32px #ffd70044;
+}
+
+.bad-card {
+  background: rgba(80, 0, 0, 0.92);
+  border: 2px solid #ff4d4d;
+  box-shadow: 0 4px 24px #ff4d4d44;
+}
+
+.bad-card h2 {
+  color: #ff4d4d;
+}
+
+.bad-card p {
+  color: #fff;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

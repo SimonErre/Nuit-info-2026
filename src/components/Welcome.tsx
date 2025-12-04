@@ -1,32 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import './Welcome.css';
 
 export default function Welcome() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    // Animation d'apparition
     gsap.fromTo(
       containerRef.current,
       { scale: 0.8, opacity: 0 },
       { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
     );
-    const timeout = setTimeout(() => {
-      gsap.to(containerRef.current, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.in',
-        onComplete: () => {
-          setVisible(false);
-        },
-      });
-    }, 3000);
-    return () => clearTimeout(timeout);
   }, []);
-
-  if (!visible) return null;
 
   return (
     <div ref={containerRef} className="welcome-message">
