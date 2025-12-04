@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/image.png" type="Texture" id=1]
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Book.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/pnjSprites.png" type="Texture" id=4]
 
 [node name="Node2D" type="Node2D"]
 
@@ -18,3 +20,67 @@ current = true
 zoom = Vector2( 0.7, 0.7 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
+
+[node name="Book" parent="." instance=ExtResource( 3 )]
+position = Vector2( -290, 54 )
+book_title = "Livre de zemel"
+book_content = "Ce livre contient des secrets anciens et mystérieux que seuls les plus courageux peuvent découvrir.
+
+Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
+
+On raconte que celui qui lira tous les livres de cette bibliothèque découvrira un secret capable de changer le monde.
+
+Mais attention, car certains savoirs sont dangereux... Cherchez bien, et vous trouverez peut-être la vérité que vous cherchez.
+Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+
+cccccccccccccccccccccccccccccccccccc
+
+ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+fffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggg"
+
+[node name="Directeur" type="Sprite" parent="."]
+position = Vector2( 343, 71 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 697.327, 3.67345, 56.4677, 91.8882 )
+
+[node name="Professeur" type="Sprite" parent="."]
+position = Vector2( -260, -126 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 699.624, 187.079, 50.2305, 94.1213 )
+
+[node name="Etudiant1" type="Sprite" parent="."]
+position = Vector2( 148, 52 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
+
+[node name="Etudiant2" type="Sprite" parent="."]
+position = Vector2( 168, 62 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
+
+[node name="Etudiant3" type="Sprite" parent="."]
+position = Vector2( 155, 69 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
+
+[node name="Etudiant4" type="Sprite" parent="."]
+position = Vector2( 124, 118 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )

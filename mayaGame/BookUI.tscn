@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://BookUI.gd" type="Script" id=1]
+
+[node name="BookUI" type="CanvasLayer"]
+pause_mode = 2
+layer = 100
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.6 )
+
+[node name="BookContainer" type="CenterContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BookBackground" type="ColorRect" parent="Control/BookContainer"]
+margin_left = -310.0
+margin_top = -210.0
+margin_right = 310.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 620, 420 )
+color = Color( 0.35, 0.22, 0.12, 1 )
+
+[node name="BookPanel" type="ColorRect" parent="Control/BookContainer"]
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+color = Color( 0.96, 0.93, 0.85, 1 )
+
+[node name="BookSpine" type="ColorRect" parent="Control/BookContainer/BookPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -3.0
+margin_right = 3.0
+color = Color( 0.35, 0.22, 0.12, 1 )
+
+[node name="LeftPage" type="ColorRect" parent="Control/BookContainer/BookPanel"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -15.0
+margin_bottom = -20.0
+color = Color( 1, 0.99, 0.95, 1 )
+
+[node name="LeftContent" type="VBoxContainer" parent="Control/BookContainer/BookPanel/LeftPage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -35.0
+
+[node name="TitleLabel" type="Label" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
+margin_right = 235.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.2, 0.15, 0.1, 1 )
+text = "Titre du Livre"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
+margin_top = 24.0
+margin_right = 235.0
+margin_bottom = 28.0
+
+[node name="LeftText" type="Label" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
+margin_top = 32.0
+margin_right = 235.0
+margin_bottom = 280.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.15, 0.12, 0.08, 1 )
+text = "Page gauche..."
+autowrap = true
+
+[node name="LeftPageNum" type="Label" parent="Control/BookContainer/BookPanel/LeftPage"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -25.0
+margin_right = -10.0
+margin_bottom = -5.0
+custom_colors/font_color = Color( 0.4, 0.35, 0.3, 1 )
+text = "1"
+align = 1
+
+[node name="RightPage" type="ColorRect" parent="Control/BookContainer/BookPanel"]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+color = Color( 1, 0.99, 0.95, 1 )
+
+[node name="RightContent" type="VBoxContainer" parent="Control/BookContainer/BookPanel/RightPage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -35.0
+
+[node name="RightText" type="Label" parent="Control/BookContainer/BookPanel/RightPage/RightContent"]
+margin_right = 235.0
+margin_bottom = 310.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.15, 0.12, 0.08, 1 )
+text = "Page droite..."
+autowrap = true
+
+[node name="RightPageNum" type="Label" parent="Control/BookContainer/BookPanel/RightPage"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -25.0
+margin_right = -10.0
+margin_bottom = -5.0
+custom_colors/font_color = Color( 0.4, 0.35, 0.3, 1 )
+text = "2"
+align = 1
+
+[node name="PrevButton" type="Button" parent="Control/BookContainer/BookPanel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -35.0
+margin_top = -20.0
+margin_right = 10.0
+margin_bottom = 20.0
+text = "<"
+
+[node name="NextButton" type="Button" parent="Control/BookContainer/BookPanel"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -10.0
+margin_top = -20.0
+margin_right = 35.0
+margin_bottom = 20.0
+text = ">"
+
+[node name="CloseHint" type="Label" parent="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_bottom = -15.0
+custom_colors/font_color = Color( 0.8, 0.8, 0.8, 1 )
+text = "Appuyez sur [E] ou [Échap] pour fermer  •  Flèches ou boutons pour tourner les pages"
+align = 1
+
