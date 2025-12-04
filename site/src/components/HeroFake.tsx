@@ -13,6 +13,10 @@ export const HeroFake = () => {
     const scale = useTransform(scrollYProgress, [0.8, 0.9], [1, 1.1]);
     const x = useTransform(scrollYProgress, [0.8, 0.82, 0.84, 0.86, 0.88, 0.9], [0, -10, 10, -10, 10, 0]);
     const filter = useTransform(scrollYProgress, [0.8, 0.9], ["none", "invert(1) hue-rotate(180deg)"]);
+    
+    // "ou pas" appears in red when scrolling - slides down from top
+    const ouPasOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+    const ouPasY = useTransform(scrollYProgress, [0.4, 0.6], [-50, 0]);
 
     return (
         <div ref={containerRef} className="h-[200vh] relative bg-white text-apple-text">
@@ -25,9 +29,19 @@ export const HeroFake = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-6xl md:text-8xl font-bold tracking-tighter mb-6"
+                        className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 relative"
                     >
                         Le Futur est là.
+                        <motion.span 
+                            style={{ 
+                                opacity: ouPasOpacity, 
+                                y: ouPasY,
+                                color: '#ff0000'
+                            }}
+                            className="absolute left-full ml-4 whitespace-nowrap"
+                        >
+                            (Ou pas.)
+                        </motion.span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
