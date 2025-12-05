@@ -6,14 +6,14 @@ import { ArrowRight } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const dataPoints = [
-    "14 Octobre 2025",
-    "Windows 10 meurt.",
-    "240 Millions de PC...",
-    "...bons pour la casse.",
-    "480 Millions de kg de déchets.",
-    "L'équivalent de 48 Tours Eiffel.",
-    "Tout ça pour une mise à jour.",
-    "N'acceptez pas l'obsolescence."
+    { text: "14 Octobre 2025", color: "#ff3333", glow: "rgba(255, 51, 51, 0.8)", top: -25, left: 28, size: "clamp(10rem, 6vw, 5rem)" },
+    { text: "Windows 10 meurt.", color: "#ffffff", glow: "rgba(255, 255, 255, 0.5)", top: 8, left: -1, size: "clamp(15rem, 8vw, 7rem)" },
+    { text: "240 Millions de PC...", color: "#ff9500", glow: "rgba(255, 149, 0, 0.8)", top: -35, left: -15, size: "clamp(5rem, 7vw, 6rem)" },
+    { text: "...bons pour la casse.", color: "#ffcc00", glow: "rgba(255, 204, 0, 0.8)", top: 25, left: 12, size: "clamp(2rem, 5vw, 4.5rem)" },
+    { text: "480 Millions de kg de CO2", color: "#ff0000", glow: "rgba(255, 0, 0, 0.9)", top: -15, left: -15, size: "clamp(2.5rem, 6vw, 5.5rem)" },
+    { text: "48 Tours Eiffel.", color: "#ffaa00", glow: "rgba(255, 170, 0, 0.8)", top: 35, left: -20, size: "clamp(7rem, 7vw, 6rem)" },
+    { text: "Pour une mise à jour.", color: "#ff4466", glow: "rgba(255, 68, 102, 0.8)", top: 10, left: 3, size: "clamp(3.5rem, 5vw, 4.5rem)" },
+    { text: "OBSOLESCENCE.", color: "#ff2222", glow: "rgba(255, 34, 34, 0.9)", top: 40, left: 1, size: "clamp(3.5rem, 9vw, 8rem)" }
 ];
 
 export const RealityCheck = () => {
@@ -39,12 +39,12 @@ export const RealityCheck = () => {
                 if (!textEl) return;
 
                 // Randomize entrance slightly
-                const randomX = (Math.random() - 0.5) * 50;
-                const randomY = (Math.random() - 0.5) * 50;
+                const randomX = (Math.random() - 0.5) * 30;
+                const randomY = (Math.random() - 0.5) * 30;
 
                 tl.fromTo(textEl,
                     { opacity: 0, scale: 0, x: randomX, y: randomY },
-                    { opacity: 1, scale: 1 + (index * 0.2), x: 0, y: 0, duration: 1, ease: "power2.out" },
+                    { opacity: 1, scale: 1, x: 0, y: 0, duration: 1, ease: "power2.out" },
                     index * 0.5 // Stagger overlap
                 );
             });
@@ -91,28 +91,25 @@ export const RealityCheck = () => {
         <div ref={containerRef} className="h-screen w-full bg-black relative overflow-hidden flex items-center justify-center">
             {/* Chaos Layer */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {dataPoints.map((text, index) => {
-                    // Deterministic random positions for layout
-                    const randomTop = ((index * 37) % 60) - 30;
-                    const randomLeft = ((index * 23) % 60) - 30;
-                    const isRed = index % 3 === 0;
-
+                {dataPoints.map((item, index) => {
                     return (
                         <div
                             key={index}
                             ref={el => { textsRef.current[index] = el; }}
-                            className={`absolute text-center font-black tracking-tighter uppercase ${isRed ? 'text-red-600' : 'text-white'}`}
+                            className="absolute text-center font-black tracking-tighter uppercase"
                             style={{
-                                top: `calc(50% + ${randomTop}%)`,
-                                left: `calc(50% + ${randomLeft}%)`,
+                                top: `calc(50% + ${item.top}%)`,
+                                left: `calc(50% + ${item.left}%)`,
                                 transform: 'translate(-50%, -50%)',
-                                fontSize: 'clamp(2rem, 5vw, 5rem)',
-                                lineHeight: 0.9,
-                                textShadow: isRed ? '0 0 20px rgba(220, 38, 38, 0.5)' : '0 0 10px rgba(255,255,255,0.3)',
+                                fontSize: item.size,
+                                lineHeight: 1,
+                                color: item.color,
+                                textShadow: `0 0 15px ${item.glow}, 0 0 40px ${item.glow}, 0 0 80px ${item.glow}, 0 4px 8px rgba(0,0,0,0.9)`,
+                                WebkitTextStroke: '2px rgba(0,0,0,0.5)',
                                 opacity: 0 // Initial state handled by GSAP
                             }}
                         >
-                            {text}
+                            {item.text}
                         </div>
                     );
                 })}
