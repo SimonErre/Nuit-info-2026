@@ -5,6 +5,8 @@ var current_npc_name = "PNJ"
 var option_buttons = []
 var dialogue_bubble = null  # Bulle qui suit le PNJ
 
+var intro_letter_shown = false
+
 func _ready():
 	add_to_group("dialogue_ui")
 	hide_dialogue()
@@ -13,6 +15,9 @@ func _ready():
 	GameData.connect("combo_changed", self, "_on_combo_changed")
 	GameData.connect("roasted", self, "_on_roasted")
 	GameData.connect("game_over", self, "_on_game_over")
+	# Afficher la lettre d'introduction après un court délai
+	yield(get_tree().create_timer(0.5), "timeout")
+	show_intro_letter()
 
 func setup_minimal_stats():
 	# === PANNEAU DE STATS EN HAUT À GAUCHE ===
@@ -332,6 +337,138 @@ func _on_roasted():
 
 func _on_game_over():
 	show_game_over()
+
+# === LETTRE D'INTRODUCTION ===
+func show_intro_letter():
+	if intro_letter_shown:
+		return
+	intro_letter_shown = true
+	visible = true
+	
+	# Supprimer l'ancienne bulle si elle existe
+	if dialogue_bubble:
+		dialogue_bubble.queue_free()
+	
+	# Créer le panneau de la lettre
+	var letter = Control.new()
+	letter.name = "IntroLetter"
+	letter.anchor_left = 0.1
+	letter.anchor_right = 0.9
+	letter.anchor_top = 0.1
+	letter.anchor_bottom = 0.9
+	
+	# Fond de la lettre (style parchemin)
+	var bg = Panel.new()
+	bg.name = "LetterBG"
+	bg.anchor_left = 0
+	bg.anchor_right = 1
+	bg.anchor_top = 0
+	bg.anchor_bottom = 1
+	
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.95, 0.92, 0.85, 0.98)
+	style.border_color = Color(0.6, 0.5, 0.3, 1.0)
+	style.border_width_left = 3
+	style.border_width_right = 3
+	style.border_width_top = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 5
+	style.corner_radius_top_right = 5
+	style.corner_radius_bottom_left = 5
+	style.corner_radius_bottom_right = 5
+	style.shadow_color = Color(0, 0, 0, 0.4)
+	style.shadow_size = 8
+	bg.add_stylebox_override("panel", style)
+	letter.add_child(bg)
+	
+	# Contenu de la lettre
+	var content = VBoxContainer.new()
+	content.name = "LetterContent"
+	content.anchor_left = 0.05
+	content.anchor_right = 0.95
+	content.anchor_top = 0.05
+	content.anchor_bottom = 0.85
+	content.set("custom_constants/separation", 15)
+	letter.add_child(content)
+	
+	# Titre de la lettre
+	var title = Label.new()
+	title.text = "📜 Lettre de Bienvenue"
+	title.align = Label.ALIGN_CENTER
+	title.add_color_override("font_color", Color(0.3, 0.2, 0.1))
+	content.add_child(title)
+	
+	# Séparateur
+	var sep = HSeparator.new()
+	sep.modulate = Color(0.6, 0.5, 0.3)
+	content.add_child(sep)
+	
+	# Corps de la lettre
+	var body = RichTextLabel.new()
+	body.name = "LetterBody"
+	body.bbcode_enabled = true
+	body.bbcode_text = """Cher(e) étudiant(e),
+
+Bienvenue dans ce lycée où le numérique règne en maître ! Vous êtes un membre du [b]NIRD[/b] (Numérique Inclusif, Responsable et Durable), un collectif engagé pour promouvoir les logiciels libres.
+
+[color=#8B4513]🎯 Votre mission :[/color]
+Convaincre le [b]Directeur[/b] d'adopter les logiciels libres et open source dans l'établissement.
+
+[color=#8B4513]📚 Comment y parvenir :[/color]
+• Parlez aux [b]professeurs[/b] et [b]élèves[/b] pour acquérir des connaissances
+• Apprenez sur le [b]Markdown[/b], le [b]RGPD[/b], l'[b]écologie numérique[/b], la [b]souveraineté numérique[/b]...
+• Débloquez de nouveaux [b]arguments[/b] pour votre débat final avec le Directeur
+• Utilisez les [b]ordinateurs[/b] et [b]livres[/b] pour vous informer
+
+[color=#8B4513]⚠️ Attention :[/color]
+• Votre [b]Moral[/b] représente vos points de vie - ne le laissez pas tomber à zéro !
+• Le Directeur peut vous [b]roaster[/b] si vous manquez de connaissances
+• Enchaînez les bonnes réponses pour des [b]combos[/b] puissants !
+
+[color=#228B22]Bonne chance dans votre quête pour le libre ![/color]
+
+— Le NIRD 🐧"""
+	body.scroll_active = true
+	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	body.add_color_override("default_color", Color(0.2, 0.15, 0.1))
+	content.add_child(body)
+	
+	# Bouton pour fermer
+	var close_btn = Button.new()
+	close_btn.name = "CloseButton"
+	close_btn.text = "📖 Commencer l'aventure !"
+	close_btn.anchor_left = 0.3
+	close_btn.anchor_right = 0.7
+	close_btn.anchor_top = 0.88
+	close_btn.anchor_bottom = 0.95
+	
+	var btn_style = StyleBoxFlat.new()
+	btn_style.bg_color = Color(0.3, 0.5, 0.3, 0.9)
+	btn_style.corner_radius_top_left = 8
+	btn_style.corner_radius_top_right = 8
+	btn_style.corner_radius_bottom_left = 8
+	btn_style.corner_radius_bottom_right = 8
+	close_btn.add_stylebox_override("normal", btn_style)
+	
+	var btn_hover = StyleBoxFlat.new()
+	btn_hover.bg_color = Color(0.4, 0.6, 0.4, 1.0)
+	btn_hover.corner_radius_top_left = 8
+	btn_hover.corner_radius_top_right = 8
+	btn_hover.corner_radius_bottom_left = 8
+	btn_hover.corner_radius_bottom_right = 8
+	close_btn.add_stylebox_override("hover", btn_hover)
+	
+	close_btn.connect("pressed", self, "_on_intro_letter_closed")
+	letter.add_child(close_btn)
+	
+	dialogue_bubble = letter
+	add_child(letter)
+
+func _on_intro_letter_closed():
+	if dialogue_bubble:
+		dialogue_bubble.queue_free()
+		dialogue_bubble = null
+	# Ne pas mettre visible = false pour garder le panneau des stats visible
 
 # === BULLE DE DIALOGUE AU-DESSUS DU PNJ (CLAMPÉE À L'ÉCRAN) ===
 func show_dialogue(npc, dialogue_data, npc_name_str = "PNJ"):
