@@ -110,7 +110,8 @@ export const RealityCheck = () => {
                                 color: item.color,
                                 textShadow: `0 0 15px ${item.glow}, 0 0 40px ${item.glow}, 0 0 80px ${item.glow}, 0 4px 8px rgba(0,0,0,0.9)`,
                                 WebkitTextStroke: '2px rgba(0,0,0,0.5)',
-                                opacity: 0 // Initial state handled by GSAP
+                                opacity: 0, // Initial state handled by GSAP
+                                willChange: 'transform, opacity, filter'
                             }}
                         >
                             {item.text}
@@ -120,7 +121,7 @@ export const RealityCheck = () => {
             </div>
 
             {/* Solution / CTA Layer */}
-            <div ref={ctaRef} className="relative z-20 text-center px-6 max-w-4xl opacity-0">
+            <div ref={ctaRef} className="relative z-20 text-center px-6 max-w-4xl opacity-0" style={{ willChange: 'transform, opacity' }}>
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
                     Arrêtez le massacre.
                 </h2>
