@@ -14,7 +14,6 @@
 [ext_resource path="res://ElevesWindows.tscn" type="PackedScene" id=12]
 [ext_resource path="res://EleveEcolo.tscn" type="PackedScene" id=13]
 [ext_resource path="res://FemmeInfo.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/soundtrack_08_24.mp3" type="AudioStream" id=15]
 [ext_resource path="res://TableLetter.tscn" type="PackedScene" id=16]
 [ext_resource path="res://VideoPC.tscn" type="PackedScene" id=17]
 
@@ -370,25 +369,16 @@ one_way_collision_margin = 2.0
 
 [node name="Book" parent="." instance=ExtResource( 3 )]
 position = Vector2( -290, 54 )
-book_title = "Livre de zemel"
-book_content = "Ce livre contient des secrets anciens et mystérieux que seuls les plus courageux peuvent découvrir.
+book_title = "Se détacher de Windows"
+book_content = "Se détacher de Windows, ce n’est pas forcément abandonner tout ce que l’on connaît : c’est plutôt découvrir qu’il existe d’autres façons d’utiliser son ordinateur, plus libres et souvent plus simples. Beaucoup de personnes pensent être “coincées” avec Windows parce qu’elles ont toujours utilisé Word, Excel ou les logiciels préinstallés, mais en réalité, des alternatives existent… et fonctionnent très bien.
 
-Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
+L’une des premières étapes de cette transition consiste à remplacer les logiciels propriétaires par des solutions libres. Par exemple, LibreOffice permet de faire tout ce que l’on ferait avec Word, Excel ou PowerPoint, sans payer, sans abonnement, et sans dépendre d’un seul système. Il ouvre les fichiers .docx, crée des PDF, met en forme des documents complexes et propose même des outils avancés pour les utilisateurs exigeants. Beaucoup découvrent qu’au quotidien, ils n’ont rien à perdre… et beaucoup à gagner.
 
-On raconte que celui qui lira tous les livres de cette bibliothèque découvrira un secret capable de changer le monde.
+Se détacher de Windows, c’est aussi reprendre le contrôle de son environnement numérique. Sur d’autres systèmes, comme Linux, les mises à jour sont plus transparentes, les logiciels ne s’installent pas en secret et l’ordinateur ne ralentit pas avec le temps. On choisit ce que l’on installe, ce que l’on fait tourner, et même l’apparence de son interface. C’est une forme de liberté numérique qui surprend agréablement ceux qui n’ont connu que Windows.
 
-Mais attention, car certains savoirs sont dangereux... Cherchez bien, et vous trouverez peut-être la vérité que vous cherchez.
-Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
+Ce changement permet également de réduire la dépendance aux logiciels propriétaires qui imposent leurs règles et leurs formats. En adoptant des logiciels libres, on utilise des outils qui respectent les utilisateurs et leurs données. C’est aussi une façon de prolonger la vie d’un ordinateur : là où Windows peut ralentir ou devenir lourd, d’autres systèmes restent légers et stables.
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-
-cccccccccccccccccccccccccccccccccccc
-
-ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-fffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggg"
+Au final, se détacher de Windows ne signifie pas “tout changer brutalement”, mais simplement ouvrir la porte à d’autres possibilités. On commence par remplacer Word par LibreOffice, puis on découvre qu’on peut naviguer différemment, installer des logiciels libres, personnaliser son environnement… et petit à petit, on réalise qu’on n’a plus vraiment besoin de revenir en arrière."
 
 [node name="Directeur" parent="." instance=ExtResource( 6 )]
 position = Vector2( 343, 71 )
