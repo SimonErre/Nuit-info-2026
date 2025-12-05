@@ -734,6 +734,34 @@ func _on_replay_pressed():
 	hide_dialogue()
 	get_tree().reload_current_scene()
 
+func _is_player_in_top_left_room() -> bool:
+	# Vérifie si le joueur est dans la zone en haut à gauche de la carte
+	var player = get_tree().get_nodes_in_group("player")
+	if player.size() == 0:
+		return false
+	
+	var player_pos = player[0].global_position
+	# Zone approximative de la pièce en haut à gauche (ajuster si nécessaire)
+	return player_pos.x < -180 and player_pos.y < -100
+
+func _update_stats_panel_position():
+	var stats_panel = get_node_or_null("StatsPanel")
+	if not stats_panel:
+		return
+	
+	if _is_player_in_top_left_room():
+		# Déplacer le panneau à droite
+		stats_panel.anchor_left = 0.75
+		stats_panel.anchor_right = 0.99
+		stats_panel.anchor_top = 0.02
+		stats_panel.anchor_bottom = 0.25
+	else:
+		# Position normale en haut à gauche
+		stats_panel.anchor_left = 0.01
+		stats_panel.anchor_right = 0.25
+		stats_panel.anchor_top = 0.02
+		stats_panel.anchor_bottom = 0.25
+
 func hide_dialogue():
 	if dialogue_bubble:
 		dialogue_bubble.queue_free()
@@ -749,3 +777,5 @@ func _process(_delta):
 	update_all_stats()
 	# Mettre à jour la position de la bulle pour qu'elle reste clampée
 	_update_bubble_position()
+	# Déplacer le panneau de stats si le joueur est dans la pièce en haut à gauche
+	_update_stats_panel_position()
