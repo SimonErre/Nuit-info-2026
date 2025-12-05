@@ -145,7 +145,7 @@ export const RealityCheck = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
                     <div className="relative w-full max-w-4xl h-[80vh]">
                         <iframe
-                            src=""
+                            src="/game/maya.html"
                             title="Jeu Godot"
                             className="w-full h-full rounded-lg shadow-lg border-4 border-green-400"
                             allowFullScreen
