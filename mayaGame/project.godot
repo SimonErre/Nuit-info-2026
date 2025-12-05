@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="maya"
-run/main_scene="res://test.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameData="*res://GameData.gd"
 
 [display]
 
