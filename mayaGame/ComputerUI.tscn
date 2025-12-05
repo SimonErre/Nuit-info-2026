@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ComputerUI.gd" type="Script" id=1]
 [ext_resource path="res://DesktopIcon.gd" type="Script" id=2]
 [ext_resource path="res://Notepad.gd" type="Script" id=3]
 [ext_resource path="res://CommandPrompt.gd" type="Script" id=4]
+[ext_resource path="res://LinuxTerminal.gd" type="Script" id=5]
 
 [node name="ComputerUI" type="CanvasLayer"]
 pause_mode = 2
@@ -383,6 +384,170 @@ For more information about this issue and
 possible fixes, visit https://www.windows.com/stopcode
 
 Stop code: CRITICAL_PROCESS_DIED"
+
+[node name="LinuxBoot" type="ColorRect" parent="Control/Monitor"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+color = Color( 0.05, 0.05, 0.05, 1 )
+
+[node name="BootText" type="Label" parent="Control/Monitor/LinuxBoot"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+custom_colors/font_color = Color( 0.8, 0.8, 0.8, 1 )
+text = ""
+autowrap = true
+
+[node name="LinuxDesktop" type="ColorRect" parent="Control/Monitor"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+color = Color( 0.15, 0.1, 0.2, 1 )
+
+[node name="TerminalIcon" type="Control" parent="Control/Monitor/LinuxDesktop"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 80.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 60, 70 )
+script = ExtResource( 2 )
+
+[node name="IconImage" type="ColorRect" parent="Control/Monitor/LinuxDesktop/TerminalIcon"]
+margin_left = 10.0
+margin_right = 50.0
+margin_bottom = 40.0
+color = Color( 0.2, 0.15, 0.25, 1 )
+
+[node name="IconDetail" type="ColorRect" parent="Control/Monitor/LinuxDesktop/TerminalIcon/IconImage"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 37.0
+margin_bottom = 37.0
+color = Color( 0.12, 0.08, 0.15, 1 )
+
+[node name="TermText" type="Label" parent="Control/Monitor/LinuxDesktop/TerminalIcon/IconImage"]
+margin_left = 5.0
+margin_top = 10.0
+margin_right = 35.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0.6, 0.9, 0.6, 1 )
+text = ">_"
+
+[node name="IconLabel" type="Label" parent="Control/Monitor/LinuxDesktop/TerminalIcon"]
+margin_top = 45.0
+margin_right = 60.0
+margin_bottom = 70.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Terminal"
+align = 1
+valign = 1
+
+[node name="LinuxTerminal" type="Panel" parent="Control/Monitor/LinuxDesktop"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 530.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 250, 150 )
+script = ExtResource( 5 )
+
+[node name="TermBg" type="ColorRect" parent="Control/Monitor/LinuxDesktop/LinuxTerminal"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.12, 0.08, 0.15, 1 )
+
+[node name="TitleBar" type="ColorRect" parent="Control/Monitor/LinuxDesktop/LinuxTerminal"]
+anchor_right = 1.0
+margin_bottom = 25.0
+color = Color( 0.2, 0.15, 0.25, 1 )
+
+[node name="TitleLabel" type="Label" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/TitleBar"]
+margin_left = 5.0
+margin_top = 3.0
+margin_right = 250.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Terminal - Ubuntu"
+
+[node name="CloseButton" type="Button" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/TitleBar"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -23.0
+margin_top = 2.0
+margin_right = -3.0
+margin_bottom = 22.0
+text = "X"
+
+[node name="Content" type="ColorRect" parent="Control/Monitor/LinuxDesktop/LinuxTerminal"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 28.0
+margin_right = -3.0
+margin_bottom = -28.0
+color = Color( 0.12, 0.08, 0.15, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/Content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scroll_horizontal_enabled = false
+
+[node name="VBox" type="VBoxContainer" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/Content/ScrollContainer"]
+margin_right = 494.0
+size_flags_horizontal = 3
+
+[node name="OutputText" type="Label" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/Content/ScrollContainer/VBox"]
+margin_right = 494.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.6, 0.9, 0.6, 1 )
+text = ""
+autowrap = true
+
+[node name="InputLine" type="HBoxContainer" parent="Control/Monitor/LinuxDesktop/LinuxTerminal"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -25.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="Prompt" type="Label" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/InputLine"]
+margin_right = 100.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.6, 0.9, 0.6, 1 )
+text = "user@linux:~$"
+
+[node name="CommandInput" type="LineEdit" parent="Control/Monitor/LinuxDesktop/LinuxTerminal/InputLine"]
+margin_left = 104.0
+margin_right = 490.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.6, 0.9, 0.6, 1 )
+
+[node name="ResizeHandle" type="ColorRect" parent="Control/Monitor/LinuxDesktop/LinuxTerminal"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -15.0
+color = Color( 0.3, 0.25, 0.35, 1 )
 
 [node name="PostIt" type="ColorRect" parent="Control/Monitor"]
 margin_left = 480.0
