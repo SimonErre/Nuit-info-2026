@@ -25,7 +25,7 @@ func _on_cmd_opened():
 func _on_nird_letter_opened():
 	# Afficher la lettre du NIRD dans le Notepad
 	var letter_content = """════════════════════════════════════════════
-         📜 LETTRE DU NIRD 📜
+		 📜 LETTRE DU NIRD 📜
 ════════════════════════════════════════════
 
 Cher(e) étudiant(e),
@@ -69,7 +69,7 @@ l'établissement.
 
 Bonne chance dans votre quête pour le libre !
 
-                        — Le NIRD 🐧
+						— Le NIRD 🐧
 
 ════════════════════════════════════════════"""
 	$Control/Monitor/Screen/Notepad.show_notepad(letter_content)
