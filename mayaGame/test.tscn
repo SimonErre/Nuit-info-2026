@@ -5,6 +5,7 @@
 [ext_resource path="res://Book.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/pnjSprites.png" type="Texture" id=4]
 [ext_resource path="res://assets/pnjSprites2.png" type="Texture" id=5]
+[ext_resource path="res://Computer.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -106,3 +107,6 @@ scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
+
+[node name="Computer" parent="." instance=ExtResource( 5 )]
+position = Vector2( 162, -132 )
