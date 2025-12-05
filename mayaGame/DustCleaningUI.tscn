@@ -1,0 +1,204 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://DustCleaningUI.gd" type="Script" id=1]
+
+[node name="DustCleaningUI" type="CanvasLayer"]
+pause_mode = 2
+layer = 100
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+pause_mode = 2
+
+[node name="Background" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.02, 0.02, 0.05, 0.92 )
+
+[node name="HeaderPanel" type="Panel" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -280.0
+margin_top = 12.0
+margin_right = 280.0
+margin_bottom = 90.0
+
+[node name="HeaderBG" type="ColorRect" parent="Control/HeaderPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.1, 0.12, 0.15, 0.95 )
+
+[node name="Title" type="Label" parent="Control/HeaderPanel"]
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 550.0
+margin_bottom = 38.0
+custom_colors/font_color = Color( 0.4, 0.9, 0.5, 1 )
+text = "🔧 MAINTENANCE PC - DÉPOUSSIÉRAGE DES COMPOSANTS"
+align = 1
+valign = 1
+
+[node name="Instructions" type="Label" parent="Control/HeaderPanel"]
+margin_left = 10.0
+margin_top = 42.0
+margin_right = 550.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.85, 0.85, 0.85, 1 )
+text = "💨 Maintenez le clic gauche et frottez les composants poussiéreux pour les nettoyer"
+align = 1
+
+[node name="PCCase" type="Panel" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -235.0
+margin_top = -175.0
+margin_right = 235.0
+margin_bottom = 260.0
+
+[node name="CaseFrame" type="ColorRect" parent="Control/PCCase"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.15, 0.15, 0.18, 1 )
+
+[node name="CaseBorder" type="ReferenceRect" parent="Control/PCCase"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 465.0
+margin_bottom = 430.0
+border_color = Color( 0.35, 0.35, 0.4, 1 )
+border_width = 3.0
+editor_only = false
+
+[node name="CaseTitle" type="Label" parent="Control/PCCase"]
+margin_left = 15.0
+margin_top = 12.0
+margin_right = 455.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.7, 0.7, 0.75, 1 )
+text = "💻 Boîtier PC - Vue intérieure (panneau latéral retiré)"
+
+[node name="Interior" type="Control" parent="Control/PCCase"]
+margin_left = 30.0
+margin_top = 40.0
+margin_right = 440.0
+margin_bottom = 400.0
+
+[node name="ProgressPanel" type="Panel" parent="Control/PCCase"]
+margin_left = 15.0
+margin_top = 395.0
+margin_right = 455.0
+margin_bottom = 430.0
+
+[node name="ProgressBG" type="ColorRect" parent="Control/PCCase/ProgressPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.08, 0.1, 0.12, 0.9 )
+
+[node name="ProgressLabel" type="Label" parent="Control/PCCase/ProgressPanel"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 260.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0.9, 0.9, 0.9, 1 )
+text = "🧹 Nettoyage: 0/8 composants"
+
+[node name="Bar" type="ProgressBar" parent="Control/PCCase/ProgressPanel"]
+margin_left = 265.0
+margin_top = 7.0
+margin_right = 430.0
+margin_bottom = 27.0
+max_value = 100.0
+value = 0.0
+
+[node name="SuccessPanel" type="Panel" parent="Control/PCCase"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -170.0
+margin_top = -100.0
+margin_right = 170.0
+margin_bottom = 100.0
+
+[node name="SuccessBG" type="ColorRect" parent="Control/PCCase/SuccessPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.12, 0.38, 0.18, 0.98 )
+
+[node name="SuccessBorder" type="ReferenceRect" parent="Control/PCCase/SuccessPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color( 0.3, 0.8, 0.4, 1 )
+border_width = 2.0
+editor_only = false
+
+[node name="SuccessIcon" type="Label" parent="Control/PCCase/SuccessPanel"]
+margin_left = 10.0
+margin_top = 15.0
+margin_right = 330.0
+margin_bottom = 55.0
+custom_colors/font_color = Color( 0.4, 1, 0.5, 1 )
+text = "✅ PC ENTIÈREMENT NETTOYÉ !"
+align = 1
+valign = 1
+
+[node name="SuccessMessage" type="Label" parent="Control/PCCase/SuccessPanel"]
+margin_left = 10.0
+margin_top = 55.0
+margin_right = 330.0
+margin_bottom = 115.0
+custom_colors/font_color = Color( 0.95, 0.95, 0.95, 1 )
+text = "Tous les composants sont propres.
+Le PC est prêt pour l'installation
+d'un système d'exploitation."
+align = 1
+valign = 1
+
+[node name="FinishButton" type="Button" parent="Control/PCCase/SuccessPanel"]
+margin_left = 100.0
+margin_top = 135.0
+margin_right = 240.0
+margin_bottom = 175.0
+text = "✓ Terminer"
+
+[node name="Cursor" type="Control" parent="Control"]
+visible = false
+margin_right = 50.0
+margin_bottom = 50.0
+
+[node name="Icon" type="Label" parent="Control/Cursor"]
+margin_right = 45.0
+margin_bottom = 45.0
+text = "🧹"
+align = 1
+valign = 1
+
+[node name="CleanEffect" type="Label" parent="Control/Cursor"]
+visible = false
+margin_left = 28.0
+margin_top = -8.0
+margin_right = 65.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 0.8, 0.85, 0.9, 0.8 )
+text = "💨"
+
+[node name="CloseHint" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -180.0
+margin_top = -40.0
+margin_right = 180.0
+margin_bottom = -18.0
+custom_colors/font_color = Color( 0.6, 0.6, 0.65, 1 )
+text = "[Echap] pour annuler"
+align = 1
+
+[connection signal="pressed" from="Control/PCCase/SuccessPanel/FinishButton" to="." method="_on_FinishButton_pressed"]

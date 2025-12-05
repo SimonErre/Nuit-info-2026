@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/pnjSprites.png" type="Texture" id=1]
+[ext_resource path="res://chatteur.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.2788
+
+[node name="Chatteuur" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.78419, -9.98965 )
+scale = Vector2( 0.244605, 0.252036 )
+texture = ExtResource( 1 )
+offset = Vector2( 13, 35.5882 )
+region_enabled = true
+region_rect = Rect2( 871, 463, 54, 103.007 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -7.0
+margin_top = -18.0
+margin_right = 66.0
+margin_bottom = -4.0
+rect_scale = Vector2( 0.2, 0.2 )
+text = "Le Chatteur"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="InteractionHint" type="Label" parent="."]
+visible = false
+margin_left = -30.0
+margin_top = 25.0
+margin_right = 90.0
+margin_bottom = 45.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "[E] Parler"
+align = 1
