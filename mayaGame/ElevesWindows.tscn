@@ -12,20 +12,20 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = -24.0
-margin_top = -32.0
-margin_right = 96.0
-margin_bottom = -12.0
-rect_scale = Vector2( 0.5, 0.5 )
-text = "👥 Fans de Windows"
+margin_left = -25.0
+margin_top = -27.0
+margin_right = 75.0
+margin_bottom = -7.0
+rect_scale = Vector2( 0.7, 0.7 )
+text = "💻 Élève Windows"
 align = 1
 
 [node name="InteractionHint" type="Label" parent="."]
 visible = false
 margin_left = -30.0
-margin_top = 30.0
+margin_top = 25.0
 margin_right = 90.0
-margin_bottom = 50.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_bottom = 45.0
+rect_scale = Vector2( 0.7, 0.7 )
 text = "[E] Parler"
 align = 1

@@ -5,6 +5,8 @@ var current_npc_name = "PNJ"
 var option_buttons = []
 var dialogue_bubble = null  # Bulle qui suit le PNJ
 
+var intro_letter_shown = false
+
 func _ready():
 	add_to_group("dialogue_ui")
 	hide_dialogue()
@@ -13,6 +15,9 @@ func _ready():
 	GameData.connect("combo_changed", self, "_on_combo_changed")
 	GameData.connect("roasted", self, "_on_roasted")
 	GameData.connect("game_over", self, "_on_game_over")
+	# Afficher la lettre d'introduction après un court délai
+	yield(get_tree().create_timer(0.5), "timeout")
+	show_intro_letter()
 
 func setup_minimal_stats():
 	# === PANNEAU DE STATS EN HAUT À GAUCHE ===
@@ -333,6 +338,145 @@ func _on_roasted():
 func _on_game_over():
 	show_game_over()
 
+# === LETTRE D'INTRODUCTION ===
+func show_intro_letter():
+	if intro_letter_shown:
+		return
+	intro_letter_shown = true
+	_create_and_show_letter(true)
+
+func show_nird_letter():
+	# Fonction pour relire la lettre depuis l'ordinateur
+	_create_and_show_letter(false)
+
+func _create_and_show_letter(is_first_time: bool):
+	visible = true
+	
+	# Supprimer l'ancienne bulle si elle existe
+	if dialogue_bubble:
+		dialogue_bubble.queue_free()
+	
+	# Créer le panneau de la lettre
+	var letter = Control.new()
+	letter.name = "IntroLetter"
+	letter.anchor_left = 0.1
+	letter.anchor_right = 0.9
+	letter.anchor_top = 0.1
+	letter.anchor_bottom = 0.9
+	
+	# Fond de la lettre (style parchemin)
+	var bg = Panel.new()
+	bg.name = "LetterBG"
+	bg.anchor_left = 0
+	bg.anchor_right = 1
+	bg.anchor_top = 0
+	bg.anchor_bottom = 1
+	
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.95, 0.92, 0.85, 0.98)
+	style.border_color = Color(0.6, 0.5, 0.3, 1.0)
+	style.border_width_left = 3
+	style.border_width_right = 3
+	style.border_width_top = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 5
+	style.corner_radius_top_right = 5
+	style.corner_radius_bottom_left = 5
+	style.corner_radius_bottom_right = 5
+	style.shadow_color = Color(0, 0, 0, 0.4)
+	style.shadow_size = 8
+	bg.add_stylebox_override("panel", style)
+	letter.add_child(bg)
+	
+	# Contenu de la lettre
+	var content = VBoxContainer.new()
+	content.name = "LetterContent"
+	content.anchor_left = 0.05
+	content.anchor_right = 0.95
+	content.anchor_top = 0.05
+	content.anchor_bottom = 0.85
+	content.set("custom_constants/separation", 15)
+	letter.add_child(content)
+	
+	# Titre de la lettre
+	var title = Label.new()
+	title.text = "📜 Lettre de Bienvenue"
+	title.align = Label.ALIGN_CENTER
+	title.add_color_override("font_color", Color(0.3, 0.2, 0.1))
+	content.add_child(title)
+	
+	# Séparateur
+	var sep = HSeparator.new()
+	sep.modulate = Color(0.6, 0.5, 0.3)
+	content.add_child(sep)
+	
+	# Corps de la lettre
+	var body = RichTextLabel.new()
+	body.name = "LetterBody"
+	body.bbcode_enabled = true
+	body.bbcode_text = """Cher(e) étudiant(e),
+
+Bienvenue dans ce lycée où le numérique règne en maître ! Vous êtes un membre du [b]NIRD[/b] (Numérique Inclusif, Responsable et Durable), un collectif engagé pour promouvoir les logiciels libres.
+
+[color=#8B4513]🎯 Votre mission :[/color]
+Convaincre le [b]Directeur[/b] d'adopter les logiciels libres et open source dans l'établissement.
+
+[color=#8B4513]📚 Comment y parvenir :[/color]
+• Parlez aux [b]professeurs[/b] et [b]élèves[/b] pour acquérir des connaissances
+• Apprenez sur le [b]Markdown[/b], le [b]RGPD[/b], l'[b]écologie numérique[/b], la [b]souveraineté numérique[/b]...
+• Débloquez de nouveaux [b]arguments[/b] pour votre débat final avec le Directeur
+• Utilisez les [b]ordinateurs[/b] et [b]livres[/b] pour vous informer
+
+[color=#8B4513]⚠️ Attention :[/color]
+• Votre [b]Moral[/b] représente vos points de vie - ne le laissez pas tomber à zéro !
+• Le Directeur peut vous [b]roaster[/b] si vous manquez de connaissances
+• Enchaînez les bonnes réponses pour des [b]combos[/b] puissants !
+
+[color=#228B22]Bonne chance dans votre quête pour le libre ![/color]
+
+— Le NIRD 🐧"""
+	body.scroll_active = true
+	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	body.add_color_override("default_color", Color(0.2, 0.15, 0.1))
+	content.add_child(body)
+	
+	# Bouton pour fermer
+	var close_btn = Button.new()
+	close_btn.name = "CloseButton"
+	close_btn.text = "📖 Commencer l'aventure !" if is_first_time else "✓ Fermer"
+	close_btn.anchor_left = 0.3
+	close_btn.anchor_right = 0.7
+	close_btn.anchor_top = 0.88
+	close_btn.anchor_bottom = 0.95
+	
+	var btn_style = StyleBoxFlat.new()
+	btn_style.bg_color = Color(0.3, 0.5, 0.3, 0.9)
+	btn_style.corner_radius_top_left = 8
+	btn_style.corner_radius_top_right = 8
+	btn_style.corner_radius_bottom_left = 8
+	btn_style.corner_radius_bottom_right = 8
+	close_btn.add_stylebox_override("normal", btn_style)
+	
+	var btn_hover = StyleBoxFlat.new()
+	btn_hover.bg_color = Color(0.4, 0.6, 0.4, 1.0)
+	btn_hover.corner_radius_top_left = 8
+	btn_hover.corner_radius_top_right = 8
+	btn_hover.corner_radius_bottom_left = 8
+	btn_hover.corner_radius_bottom_right = 8
+	close_btn.add_stylebox_override("hover", btn_hover)
+	
+	close_btn.connect("pressed", self, "_on_intro_letter_closed")
+	letter.add_child(close_btn)
+	
+	dialogue_bubble = letter
+	add_child(letter)
+
+func _on_intro_letter_closed():
+	if dialogue_bubble:
+		dialogue_bubble.queue_free()
+		dialogue_bubble = null
+	# Ne pas mettre visible = false pour garder le panneau des stats visible
+
 # === BULLE DE DIALOGUE AU-DESSUS DU PNJ (CLAMPÉE À L'ÉCRAN) ===
 func show_dialogue(npc, dialogue_data, npc_name_str = "PNJ"):
 	current_npc = npc
@@ -550,24 +694,347 @@ func show_victory():
 	if dialogue_bubble:
 		dialogue_bubble.queue_free()
 	
-	# Créer une bulle de victoire
-	var victory_data = {
-		"text": "🎉 VICTOIRE ! 🎉\nLe directeur est convaincu !\n\n⭐ " + str(GameData.get_argument_points()) + " pts | 🔥 x" + str(GameData.max_combo) + " max\n📚 " + str(int(GameData.get_knowledge_percentage())) + "% | 💀 " + str(GameData.get_roast_count()) + " roasts\n\n🏆 " + GameData.get_final_grade(),
-		"is_victory": true,
-		"options": [
-			{"text": "🔄 Rejouer", "knowledge_required": 0}
-		]
+	# Créer l'écran de victoire complet
+	_create_victory_screen()
+
+func _create_victory_screen():
+	var victory_screen = Control.new()
+	victory_screen.name = "VictoryScreen"
+	victory_screen.anchor_right = 1.0
+	victory_screen.anchor_bottom = 1.0
+	
+	# Fond semi-transparent avec dégradé
+	var bg = ColorRect.new()
+	bg.name = "Background"
+	bg.anchor_right = 1.0
+	bg.anchor_bottom = 1.0
+	bg.color = Color(0.05, 0.1, 0.15, 0.95)
+	victory_screen.add_child(bg)
+	
+	# Container principal centré
+	var main_container = Control.new()
+	main_container.name = "MainContainer"
+	main_container.anchor_left = 0.1
+	main_container.anchor_right = 0.9
+	main_container.anchor_top = 0.05
+	main_container.anchor_bottom = 0.95
+	victory_screen.add_child(main_container)
+	
+	# Panneau principal style parchemin/certificat
+	var certificate = Panel.new()
+	certificate.name = "Certificate"
+	certificate.anchor_right = 1.0
+	certificate.anchor_bottom = 1.0
+	
+	var cert_style = StyleBoxFlat.new()
+	cert_style.bg_color = Color(0.98, 0.96, 0.90, 1.0)
+	cert_style.border_color = Color(0.6, 0.5, 0.2, 1.0)
+	cert_style.border_width_left = 4
+	cert_style.border_width_right = 4
+	cert_style.border_width_top = 4
+	cert_style.border_width_bottom = 4
+	cert_style.corner_radius_top_left = 10
+	cert_style.corner_radius_top_right = 10
+	cert_style.corner_radius_bottom_left = 10
+	cert_style.corner_radius_bottom_right = 10
+	cert_style.shadow_color = Color(0, 0, 0, 0.5)
+	cert_style.shadow_size = 10
+	certificate.add_stylebox_override("panel", cert_style)
+	main_container.add_child(certificate)
+	
+	# Bordure dorée intérieure
+	var inner_border = Panel.new()
+	inner_border.anchor_left = 0.02
+	inner_border.anchor_right = 0.98
+	inner_border.anchor_top = 0.02
+	inner_border.anchor_bottom = 0.98
+	var inner_style = StyleBoxFlat.new()
+	inner_style.bg_color = Color(0, 0, 0, 0)
+	inner_style.border_color = Color(0.8, 0.7, 0.3, 0.8)
+	inner_style.border_width_left = 2
+	inner_style.border_width_right = 2
+	inner_style.border_width_top = 2
+	inner_style.border_width_bottom = 2
+	inner_border.add_stylebox_override("panel", inner_style)
+	certificate.add_child(inner_border)
+	
+	# Contenu scrollable
+	var scroll = ScrollContainer.new()
+	scroll.anchor_left = 0.05
+	scroll.anchor_right = 0.95
+	scroll.anchor_top = 0.05
+	scroll.anchor_bottom = 0.88
+	certificate.add_child(scroll)
+	
+	var content = VBoxContainer.new()
+	content.name = "Content"
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.set("custom_constants/separation", 15)
+	scroll.add_child(content)
+	
+	# === EN-TÊTE ===
+	var header = Label.new()
+	header.text = "🏆 CERTIFICAT DE VICTOIRE 🏆"
+	header.align = Label.ALIGN_CENTER
+	header.add_color_override("font_color", Color(0.5, 0.4, 0.1))
+	content.add_child(header)
+	
+	# Séparateur décoratif
+	var sep1 = Label.new()
+	sep1.text = "═══════════════════════════════"
+	sep1.align = Label.ALIGN_CENTER
+	sep1.add_color_override("font_color", Color(0.7, 0.6, 0.3))
+	content.add_child(sep1)
+	
+	# === MESSAGE DE VICTOIRE ===
+	var victory_msg = RichTextLabel.new()
+	victory_msg.bbcode_enabled = true
+	victory_msg.fit_content_height = true
+	victory_msg.scroll_active = false
+	victory_msg.bbcode_text = """[center][color=#2E7D32]🎉 FÉLICITATIONS ! 🎉[/color]
+
+Vous avez réussi à convaincre le Directeur !
+
+Le lycée va adopter les [b]logiciels libres[/b] grâce à vos arguments 
+sur le Markdown, le RGPD, l'écologie numérique et la souveraineté ![/center]"""
+	victory_msg.add_color_override("default_color", Color(0.2, 0.15, 0.1))
+	content.add_child(victory_msg)
+	
+	# === STATISTIQUES ===
+	var stats_title = Label.new()
+	stats_title.text = "📊 VOS STATISTIQUES"
+	stats_title.align = Label.ALIGN_CENTER
+	stats_title.add_color_override("font_color", Color(0.4, 0.3, 0.1))
+	content.add_child(stats_title)
+	
+	var stats_panel = Panel.new()
+	var stats_style = StyleBoxFlat.new()
+	stats_style.bg_color = Color(0.95, 0.93, 0.85, 1.0)
+	stats_style.border_color = Color(0.7, 0.6, 0.4, 0.5)
+	stats_style.border_width_left = 1
+	stats_style.border_width_right = 1
+	stats_style.border_width_top = 1
+	stats_style.border_width_bottom = 1
+	stats_style.corner_radius_top_left = 5
+	stats_style.corner_radius_top_right = 5
+	stats_style.corner_radius_bottom_left = 5
+	stats_style.corner_radius_bottom_right = 5
+	stats_style.content_margin_left = 15
+	stats_style.content_margin_right = 15
+	stats_style.content_margin_top = 10
+	stats_style.content_margin_bottom = 10
+	stats_panel.add_stylebox_override("panel", stats_style)
+	content.add_child(stats_panel)
+	
+	var stats_vbox = VBoxContainer.new()
+	stats_vbox.set("custom_constants/separation", 5)
+	stats_panel.add_child(stats_vbox)
+	
+	var stats = [
+		["⭐ Points d'argument", str(GameData.get_argument_points())],
+		["📚 Connaissance", str(GameData.get_knowledge_percentage()) + "%"],
+		["❤️ Moral final", str(GameData.get_mood())],
+		["🔥 Combo max", "x" + str(GameData.max_combo)],
+		["✅ Bonnes réponses", str(GameData.total_good_answers)],
+		["💀 Roasts subis", str(GameData.get_roast_count())],
+		["🎓 Sujets maîtrisés", str(GameData.get_unlocked_topics_count()) + "/6"]
+	]
+	
+	for stat in stats:
+		var stat_row = HBoxContainer.new()
+		stats_vbox.add_child(stat_row)
+		
+		var label = Label.new()
+		label.text = stat[0]
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.add_color_override("font_color", Color(0.3, 0.25, 0.15))
+		stat_row.add_child(label)
+		
+		var value = Label.new()
+		value.text = stat[1]
+		value.add_color_override("font_color", Color(0.2, 0.4, 0.6))
+		stat_row.add_child(value)
+	
+	# === NOTE FINALE ===
+	var grade = GameData.get_final_grade()
+	var grade_color = Color(0.2, 0.6, 0.3)
+	if grade.begins_with("S"):
+		grade_color = Color(1.0, 0.8, 0.0)
+	elif grade.begins_with("A"):
+		grade_color = Color(0.3, 0.7, 0.3)
+	elif grade.begins_with("B"):
+		grade_color = Color(0.3, 0.5, 0.8)
+	elif grade.begins_with("C"):
+		grade_color = Color(0.6, 0.6, 0.3)
+	elif grade.begins_with("D"):
+		grade_color = Color(0.8, 0.5, 0.2)
+	else:
+		grade_color = Color(0.8, 0.3, 0.3)
+	
+	var grade_label = Label.new()
+	grade_label.text = "🏅 NOTE FINALE: " + grade
+	grade_label.align = Label.ALIGN_CENTER
+	grade_label.add_color_override("font_color", grade_color)
+	content.add_child(grade_label)
+	
+	# === LETTRE DU NIRD ===
+	var letter_title = Label.new()
+	letter_title.text = "📜 MESSAGE DU NIRD"
+	letter_title.align = Label.ALIGN_CENTER
+	letter_title.add_color_override("font_color", Color(0.4, 0.3, 0.1))
+	content.add_child(letter_title)
+	
+	var letter_panel = Panel.new()
+	letter_panel.rect_min_size = Vector2(0, 200)
+	var letter_style = StyleBoxFlat.new()
+	letter_style.bg_color = Color(1.0, 0.98, 0.9, 1.0)
+	letter_style.border_color = Color(0.6, 0.5, 0.3, 0.8)
+	letter_style.border_width_left = 2
+	letter_style.border_width_right = 2
+	letter_style.border_width_top = 2
+	letter_style.border_width_bottom = 2
+	letter_panel.add_stylebox_override("panel", letter_style)
+	content.add_child(letter_panel)
+	
+	var letter_text = RichTextLabel.new()
+	letter_text.anchor_left = 0.05
+	letter_text.anchor_right = 0.95
+	letter_text.anchor_top = 0.05
+	letter_text.anchor_bottom = 0.95
+	letter_text.bbcode_enabled = true
+	
+	var letter_content = _get_victory_letter_content(grade)
+	letter_text.bbcode_text = letter_content
+	letter_text.add_color_override("default_color", Color(0.25, 0.2, 0.15))
+	letter_text.scroll_active = true
+	letter_panel.add_child(letter_text)
+	
+	# === SUJETS DÉBLOQUÉS ===
+	var topics_title = Label.new()
+	topics_title.text = "🎓 SUJETS MAÎTRISÉS"
+	topics_title.align = Label.ALIGN_CENTER
+	topics_title.add_color_override("font_color", Color(0.4, 0.3, 0.1))
+	content.add_child(topics_title)
+	
+	var topics_container = HBoxContainer.new()
+	topics_container.alignment = BoxContainer.ALIGN_CENTER
+	topics_container.set("custom_constants/separation", 10)
+	content.add_child(topics_container)
+	
+	var topic_names = {
+		"markdown": "📝 Markdown",
+		"forge": "🔧 Forge",
+		"rgpd": "🔒 RGPD",
+		"ecology": "🌱 Écologie",
+		"sovereignty": "🏛️ Souveraineté",
+		"accessibility": "♿ Accessibilité"
 	}
 	
-	dialogue_bubble = _create_dialogue_bubble(victory_data)
-	if current_npc:
-		current_npc.add_child(dialogue_bubble)
+	for topic_id in GameData.unlocked_topics:
+		var badge = Label.new()
+		if GameData.unlocked_topics[topic_id]:
+			badge.text = topic_names.get(topic_id, topic_id)
+			badge.add_color_override("font_color", Color(0.2, 0.5, 0.3))
+		else:
+			badge.text = "🔒 ???"
+			badge.add_color_override("font_color", Color(0.5, 0.5, 0.5))
+		topics_container.add_child(badge)
 	
-	# Reconnecter le bouton pour rejouer
-	var replay_btn = dialogue_bubble.get_node_or_null("Option0")
-	if replay_btn:
-		replay_btn.disconnect("pressed", self, "_on_option_pressed")
-		replay_btn.connect("pressed", self, "_on_replay_pressed")
+	# Séparateur final
+	var sep2 = Label.new()
+	sep2.text = "═══════════════════════════════"
+	sep2.align = Label.ALIGN_CENTER
+	sep2.add_color_override("font_color", Color(0.7, 0.6, 0.3))
+	content.add_child(sep2)
+	
+	# Signature
+	var signature = Label.new()
+	signature.text = "— Le NIRD 🐧"
+	signature.align = Label.ALIGN_CENTER
+	signature.add_color_override("font_color", Color(0.4, 0.35, 0.2))
+	content.add_child(signature)
+	
+	# === BOUTONS ===
+	var buttons_container = HBoxContainer.new()
+	buttons_container.anchor_left = 0.2
+	buttons_container.anchor_right = 0.8
+	buttons_container.anchor_top = 0.90
+	buttons_container.anchor_bottom = 0.97
+	buttons_container.alignment = BoxContainer.ALIGN_CENTER
+	buttons_container.set("custom_constants/separation", 20)
+	certificate.add_child(buttons_container)
+	
+	# Bouton Rejouer
+	var replay_btn = Button.new()
+	replay_btn.text = "🔄 Nouvelle Partie"
+	replay_btn.rect_min_size = Vector2(150, 35)
+	var replay_style = StyleBoxFlat.new()
+	replay_style.bg_color = Color(0.3, 0.5, 0.7, 1.0)
+	replay_style.corner_radius_top_left = 5
+	replay_style.corner_radius_top_right = 5
+	replay_style.corner_radius_bottom_left = 5
+	replay_style.corner_radius_bottom_right = 5
+	replay_btn.add_stylebox_override("normal", replay_style)
+	var replay_hover = StyleBoxFlat.new()
+	replay_hover.bg_color = Color(0.4, 0.6, 0.8, 1.0)
+	replay_hover.corner_radius_top_left = 5
+	replay_hover.corner_radius_top_right = 5
+	replay_hover.corner_radius_bottom_left = 5
+	replay_hover.corner_radius_bottom_right = 5
+	replay_btn.add_stylebox_override("hover", replay_hover)
+	replay_btn.connect("pressed", self, "_on_replay_pressed")
+	buttons_container.add_child(replay_btn)
+	
+	dialogue_bubble = victory_screen
+	add_child(victory_screen)
+
+func _get_victory_letter_content(grade: String) -> String:
+	var intro = "Cher(e) membre du NIRD,\n\n"
+	var body = ""
+	var outro = "\n\nLe monde du libre vous remercie !\n\n"
+	
+	if grade.begins_with("S"):
+		body = """[color=#FFD700]EXTRAORDINAIRE ![/color]
+
+Votre performance est [b]légendaire[/b] ! Vous avez non seulement convaincu le Directeur, mais vous l'avez transformé en fervent défenseur du logiciel libre !
+
+Richard Stallman lui-même serait fier de vous. Vous êtes désormais nommé(e) [b]Ambassadeur(rice) du Libre[/b] !
+
+🏆 Vous recevez le [b]Tux d'Or[/b] ! 🐧✨"""
+	elif grade.begins_with("A"):
+		body = """[color=#4CAF50]EXCELLENT ![/color]
+
+Votre argumentation était [b]remarquable[/b] ! Le Directeur est totalement convaincu et commence déjà à installer LibreOffice sur son ordinateur.
+
+Vous êtes un(e) véritable ambassadeur(rice) du monde libre. Le NIRD est fier de vous compter parmi ses membres les plus actifs !
+
+🎖️ Vous recevez la [b]Médaille du Libre[/b] !"""
+	elif grade.begins_with("B"):
+		body = """[color=#2196F3]TRÈS BIEN ![/color]
+
+Belle performance ! Vous avez su présenter des arguments [b]solides[/b] et le Directeur a été convaincu par votre passion.
+
+Le lycée va progressivement adopter les logiciels libres. C'est une belle victoire pour la communauté !
+
+📜 Vous recevez le [b]Diplôme du Libre[/b] !"""
+	elif grade.begins_with("C"):
+		body = """[color=#FFC107]CORRECT ![/color]
+
+Vous avez réussi votre mission, même si le chemin fut difficile. Le Directeur a accepté de [b]tester[/b] les logiciels libres.
+
+C'est un premier pas important ! Continuez à apprendre et à défendre vos convictions.
+
+📋 Vous recevez le [b]Certificat du Libre[/b] !"""
+	else:
+		body = """[color=#FF9800]PASSABLE...[/color]
+
+Ce fut difficile, mais vous avez quand même réussi ! Le Directeur accepte à contrecœur d'installer [b]un seul[/b] logiciel libre à titre d'essai.
+
+Ne vous découragez pas ! L'important est d'avoir planté la graine du changement.
+
+📝 Vous recevez une [b]Attestation de participation[/b]."""
+	
+	return intro + body + outro
 
 func show_game_over():
 	visible = true
@@ -597,6 +1064,34 @@ func _on_replay_pressed():
 	hide_dialogue()
 	get_tree().reload_current_scene()
 
+func _is_player_in_top_left_room() -> bool:
+	# Vérifie si le joueur est dans la zone en haut à gauche de la carte
+	var player = get_tree().get_nodes_in_group("player")
+	if player.size() == 0:
+		return false
+	
+	var player_pos = player[0].global_position
+	# Zone approximative de la pièce en haut à gauche (ajuster si nécessaire)
+	return player_pos.x < -180 and player_pos.y < -100
+
+func _update_stats_panel_position():
+	var stats_panel = get_node_or_null("StatsPanel")
+	if not stats_panel:
+		return
+	
+	if _is_player_in_top_left_room():
+		# Déplacer le panneau à droite
+		stats_panel.anchor_left = 0.75
+		stats_panel.anchor_right = 0.99
+		stats_panel.anchor_top = 0.02
+		stats_panel.anchor_bottom = 0.25
+	else:
+		# Position normale en haut à gauche
+		stats_panel.anchor_left = 0.01
+		stats_panel.anchor_right = 0.25
+		stats_panel.anchor_top = 0.02
+		stats_panel.anchor_bottom = 0.25
+
 func hide_dialogue():
 	if dialogue_bubble:
 		dialogue_bubble.queue_free()
@@ -612,3 +1107,5 @@ func _process(_delta):
 	update_all_stats()
 	# Mettre à jour la position de la bulle pour qu'elle reste clampée
 	_update_bubble_position()
+	# Déplacer le panneau de stats si le joueur est dans la pièce en haut à gauche
+	_update_stats_panel_position()

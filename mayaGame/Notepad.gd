@@ -8,14 +8,16 @@ func _ready():
 	$TitleBar/CloseButton.connect("pressed", self, "_on_close")
 	$TitleBar.connect("gui_input", self, "_on_TitleBar_gui_input")
 	$MenuBar/EditButton.connect("pressed", self, "_on_edit_pressed")
+	$MenuBar/SaveButton.connect("pressed", self, "_on_save_pressed")
 	$Content/TextEdit.visible = false
-	$Content/TextEdit.connect("focus_exited", self, "_on_edit_finished")
+	$MenuBar/SaveButton.visible = false
 
 func _on_close():
 	visible = false
 	is_editing = false
 	$Content/TextContent.visible = true
 	$Content/TextEdit.visible = false
+	$MenuBar/SaveButton.visible = false
 
 func _on_edit_pressed():
 	if not is_editing:
@@ -25,16 +27,18 @@ func _on_edit_pressed():
 		$Content/TextContent.visible = false
 		$Content/TextEdit.visible = true
 		$Content/TextEdit.grab_focus()
+		$MenuBar/SaveButton.visible = true
 	else:
 		# Sauvegarder et quitter le mode édition
-		_on_edit_finished()
+		_on_save_pressed()
 
-func _on_edit_finished():
+func _on_save_pressed():
 	if is_editing:
 		is_editing = false
 		$Content/TextContent.text = $Content/TextEdit.text
 		$Content/TextContent.visible = true
 		$Content/TextEdit.visible = false
+		$MenuBar/SaveButton.visible = false
 
 func _on_TitleBar_gui_input(event):
 	if event is InputEventMouseButton:
@@ -67,3 +71,4 @@ func show_notepad(content):
 	$Content/TextContent.text = content
 	$Content/TextContent.visible = true
 	$Content/TextEdit.visible = false
+	$MenuBar/SaveButton.visible = false

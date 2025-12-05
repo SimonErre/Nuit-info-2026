@@ -11,6 +11,7 @@ func _ready():
 	# Connecter le signal pour ouvrir le fichier
 	$Control/Monitor/Screen/DesktopIcon.connect("file_opened", self, "_on_file_opened")
 	$Control/Monitor/Screen/CmdIcon.connect("file_opened", self, "_on_cmd_opened")
+	$Control/Monitor/Screen/NirdLetterIcon.connect("file_opened", self, "_on_nird_letter_opened")
 	$Control/Monitor/Screen/CommandPrompt.connect("computer_deleted", self, "_on_computer_deleted")
 	$Control/Monitor/Screen/CommandPrompt.connect("linux_install_started", self, "_on_linux_install")
 	$Control/Monitor/LinuxDesktop/TerminalIcon.connect("file_opened", self, "_on_linux_terminal_opened")
@@ -20,6 +21,59 @@ func _on_file_opened():
 
 func _on_cmd_opened():
 	$Control/Monitor/Screen/CommandPrompt.show_cmd()
+
+func _on_nird_letter_opened():
+	# Afficher la lettre du NIRD dans le Notepad
+	var letter_content = """════════════════════════════════════════════
+         📜 LETTRE DU NIRD 📜
+════════════════════════════════════════════
+
+Cher(e) étudiant(e),
+
+Bienvenue dans ce lycée où le numérique règne 
+en maître ! Vous êtes un membre du NIRD 
+(Numérique Inclusif, Responsable et Durable), 
+un collectif engagé pour promouvoir les 
+logiciels libres.
+
+────────────────────────────────────────────
+🎯 VOTRE MISSION :
+────────────────────────────────────────────
+Convaincre le Directeur d'adopter les 
+logiciels libres et open source dans 
+l'établissement.
+
+────────────────────────────────────────────
+📚 COMMENT Y PARVENIR :
+────────────────────────────────────────────
+• Parlez aux professeurs et élèves pour 
+  acquérir des connaissances
+• Apprenez sur le Markdown, le RGPD, 
+  l'écologie numérique, la souveraineté...
+• Débloquez de nouveaux arguments pour 
+  votre débat final avec le Directeur
+• Utilisez les ordinateurs et livres 
+  pour vous informer
+
+────────────────────────────────────────────
+⚠️ ATTENTION :
+────────────────────────────────────────────
+• Votre Moral représente vos points de vie
+  Ne le laissez pas tomber à zéro !
+• Le Directeur peut vous roaster si vous 
+  manquez de connaissances
+• Enchaînez les bonnes réponses pour des 
+  combos puissants !
+
+────────────────────────────────────────────
+
+Bonne chance dans votre quête pour le libre !
+
+                        — Le NIRD 🐧
+
+════════════════════════════════════════════"""
+	$Control/Monitor/Screen/Notepad.show_notepad(letter_content)
+	$Control/Monitor/Screen/Notepad/TitleBar/TitleLabel.text = "Bloc-notes - Lettre_NIRD.txt"
 
 func _on_linux_terminal_opened():
 	$Control/Monitor/LinuxDesktop/LinuxTerminal.show_terminal()

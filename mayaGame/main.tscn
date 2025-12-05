@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/image.png" type="Texture" id=1]
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
@@ -13,6 +13,12 @@
 [ext_resource path="res://ElevesWindows.tscn" type="PackedScene" id=11]
 [ext_resource path="res://EleveEcolo.tscn" type="PackedScene" id=12]
 [ext_resource path="res://ChatbotUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ComputerSnake.gd" type="Script" id=14]
+[ext_resource path="res://ObsoletePC.tscn" type="PackedScene" id=15]
+[ext_resource path="res://FemmeInfo.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/soundtrack_08_24.mp3" type="AudioStream" id=17]
+[ext_resource path="res://TableLetter.tscn" type="PackedScene" id=18]
+[ext_resource path="res://VideoPC.tscn" type="PackedScene" id=19]
 
 [node name="Node2D" type="Node2D"]
 
@@ -78,7 +84,7 @@ polygon = PoolVector2Array( -148.442, -32.24, -148.869, 20.92, -161.478, 21.54, 
 [node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 103, 103 )
 scale = Vector2( 1.74479, 1.6129 )
-polygon = PoolVector2Array( -261.203, 20.92, -178.098, 21.54, -177.525, 42.62, -194.719, 41.38, -194.146, 56.88, -202.89, 57.66, -228.107, 58.28, -231.546, 44.02, -204.463, 51.3, -201.024, 48.2, -201.024, 40.14, -219.364, 40.14, -224.096, 44.64, -261.203, 48.2 )
+polygon = PoolVector2Array( -261.203, 20.92, -178.098, 21.54, -177.525, 42.62, -194.719, 41.38, -194.146, 56.88, -202.89, 57.66, -228.107, 58.28, -227.535, 54.5601, -204.609, 53.3201, -201.024, 48.2, -201.024, 40.14, -224.096, 39.6801, -224.669, 44.0201, -261.203, 48.2 )
 
 [node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 102, 99 )
@@ -253,7 +259,7 @@ polygon = PoolVector2Array( -183.83, -5.73999, -183.83, 3.56001, -174.087, 3.560
 [node name="CollisionPolygon2D43" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 55, 186 )
 scale = Vector2( 1.74479, 1.6129 )
-polygon = PoolVector2Array( -206.328, -59.52, -198.304, -57.66, -199.451, -50.22, -208.048, -50.22 )
+polygon = PoolVector2Array( -206.902, -58.9001, -198.304, -57.66, -199.451, -50.22, -208.048, -50.22 )
 
 [node name="CollisionPolygon2D44" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 102.745, 98.258 )
@@ -338,7 +344,7 @@ polygon = PoolVector2Array( -261.203, -24.34, -258.91, -12.56, -262.349, 5.42001
 [node name="CollisionPolygon2D61" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 102.745, 98.258 )
 scale = Vector2( 1.74479, 1.6129 )
-polygon = PoolVector2Array( -262.922, 9.14001, -253.752, 12.24, -254.325, 17.82 )
+polygon = PoolVector2Array( -262.922, 9.14001, -256.953, 11.1579, -253.752, 12.24, -254.325, 17.82, -257.191, 15.3401 )
 
 [node name="CollisionPolygon2D62" type="CollisionPolygon2D" parent="collisions"]
 position = Vector2( 102.745, 98.258 )
@@ -429,6 +435,17 @@ texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
 
+[node name="Meuf de la salle info" type="Sprite" parent="."]
+position = Vector2( 263, -91 )
+scale = Vector2( 0.435294, 0.4 )
+texture = ExtResource( 4 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 16.5052, 278.887, 51.7179, 95.8936 )
+
+[node name="FemmeInfo" parent="." instance=ExtResource( 16 )]
+position = Vector2( 262, -91 )
+
 [node name="Etudiant2" type="Sprite" parent="."]
 position = Vector2( 168, 62 )
 scale = Vector2( 0.4, 0.4 )
@@ -451,7 +468,7 @@ region_enabled = true
 region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
 
 [node name="Computer" parent="." instance=ExtResource( 5 )]
-position = Vector2( 162, -132 )
+position = Vector2( 163, -128 )
 
 [node name="ProfMaths" parent="." instance=ExtResource( 9 )]
 position = Vector2( -117, -163 )
@@ -462,7 +479,7 @@ position = Vector2( -18, -159 )
 [node name="DialogueUI" parent="." instance=ExtResource( 7 )]
 
 [node name="ElevesWindows" parent="." instance=ExtResource( 11 )]
-position = Vector2( 155, 60 )
+position = Vector2( 154, 70 )
 
 [node name="EleveEcolo" parent="." instance=ExtResource( 12 )]
 position = Vector2( 50, 150 )
@@ -470,4 +487,38 @@ position = Vector2( 50, 150 )
 [node name="Chatteur" parent="." instance=ExtResource( 8 )]
 position = Vector2( -320, 195 )
 
-[node name="CanvasLayer" parent="." instance=ExtResource( 13 )]
+[node name="TableLetter" parent="." instance=ExtResource( 18 )]
+position = Vector2( -72, -109 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Computer2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 257, 209 )
+script = ExtResource( 14 )
+
+[node name="ObsoletePC" parent="." instance=ExtResource( 15 )]
+position = Vector2( -306, -127 )
+
+[node name="ObsoletePC2" parent="." instance=ExtResource( 15 )]
+position = Vector2( -310, -99 )
+
+[node name="ObsoletePC3" parent="." instance=ExtResource( 15 )]
+position = Vector2( -232, -129 )
+
+[node name="ObsoletePC4" parent="." instance=ExtResource( 15 )]
+position = Vector2( -231, -96 )
+
+[node name="Book2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -158, 161 )
+book_title = "Pourquoi choisir Linux ?"
+book_content = "Linux est un système d’exploitation libre et accessible à tous. Il se distingue par sa philosophie ouverte : chacun peut l’utiliser, le partager ou même le modifier. Cette liberté lui permet d’évoluer rapidement grâce à une vaste communauté passionnée.
+
+Un autre avantage majeur de Linux est sa stabilité. Contrairement à certains systèmes qui deviennent lents ou instables avec le temps, Linux reste fluide et fiable, même après de longues périodes d’utilisation. Beaucoup de serveurs dans le monde fonctionnent sous Linux précisément pour cette raison.
+
+Linux est également rapide et léger, ce qui en fait un excellent choix pour redonner vie à des ordinateurs anciens. Certaines versions spécialement optimisées peuvent faire tourner correctement des machines qui seraient inutilisables ailleurs.
+
+Le respect de la vie privée est l’un de ses points forts. Linux ne collecte pas vos données personnelles et vous laisse un contrôle total sur ce qui s’exécute sur votre machine. C’est un environnement où la transparence prime.
+
+Enfin, installer Linux est présenté ici de façon simple pour l’exemple : il suffirait, dans cette version imaginaire du livre, d’ouvrir l’invite de commande Windows et de taper \"install linux\" puis d’appuyer sur Entrée pour que l’installation commence automatiquement."
+
+[node name="VideoPC" parent="." instance=ExtResource( 19 )]
+position = Vector2( 303, -172 )
