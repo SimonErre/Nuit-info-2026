@@ -5,8 +5,11 @@ var current_page = 0
 var pages = []
 var book_title = ""
 var just_opened = false
+var book_id = ""  # Identifiant unique du livre
+var read_books = {}  # Dictionnaire des livres déjà lus entièrement
 
-const CHARS_PER_PAGE = 280
+const CHARS_PER_PAGE = 200
+const KNOWLEDGE_REWARD = 10
 
 func _ready():
 	hide_book()
@@ -28,10 +31,11 @@ func _input(event):
 		elif event.is_action_pressed("ui_right"):
 			_on_next_pressed()
 
-func show_book(title, content):
+func show_book(title, content, id = ""):
 	is_open = true
 	just_opened = true
 	book_title = title
+	book_id = id if id != "" else title  # Utiliser le titre comme ID par défaut
 	current_page = 0
 	
 	# Diviser le contenu en pages
@@ -56,7 +60,27 @@ func split_into_pages(content):
 	var current_text = ""
 	
 	for para in paragraphs:
-		if current_text.length() + para.length() > CHARS_PER_PAGE:
+		# Si le paragraphe seul est trop long, le découper
+		if para.length() > CHARS_PER_PAGE:
+			# D'abord ajouter ce qu'on a
+			if current_text != "":
+				result.append(current_text.strip_edges())
+				current_text = ""
+			
+			# Découper le long paragraphe par mots
+			var words = para.split(" ")
+			var chunk = ""
+			for word in words:
+				if chunk.length() + word.length() + 1 > CHARS_PER_PAGE:
+					result.append(chunk.strip_edges())
+					chunk = word
+				else:
+					if chunk != "":
+						chunk += " "
+					chunk += word
+			if chunk != "":
+				current_text = chunk
+		elif current_text.length() + para.length() + 2 > CHARS_PER_PAGE:
 			if current_text != "":
 				result.append(current_text.strip_edges())
 			current_text = para
@@ -117,3 +141,16 @@ func _on_next_pressed():
 	if current_page * 2 + 2 < pages.size():
 		current_page += 1
 		update_pages()
+		
+		# Vérifier si on a atteint la dernière page
+		check_book_completed()
+
+func check_book_completed():
+	var right_idx = current_page * 2 + 1
+	# Si on est à la dernière page et qu'on n'a pas encore lu ce livre
+	if right_idx >= pages.size() - 1 and not read_books.has(book_id):
+		read_books[book_id] = true
+		# Donner les points de connaissance
+		if GameData:
+			GameData.add_knowledge(KNOWLEDGE_REWARD, "")
+			print("📚 Livre terminé: +" + str(KNOWLEDGE_REWARD) + " points de savoir!")
