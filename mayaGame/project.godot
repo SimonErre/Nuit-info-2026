@@ -14,6 +14,10 @@ config/name="maya"
 run/main_scene="res://test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://GameData.gd"
+
 [display]
 
 window/size/resizable=false

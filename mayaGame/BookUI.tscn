@@ -22,18 +22,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="BookBackground" type="ColorRect" parent="Control/BookContainer"]
-margin_left = -310.0
-margin_top = -210.0
-margin_right = 310.0
-margin_bottom = 210.0
+margin_left = 202.0
+margin_top = 90.0
+margin_right = 822.0
+margin_bottom = 510.0
 rect_min_size = Vector2( 620, 420 )
 color = Color( 0.35, 0.22, 0.12, 1 )
 
 [node name="BookPanel" type="ColorRect" parent="Control/BookContainer"]
-margin_left = -300.0
-margin_top = -200.0
-margin_right = 300.0
-margin_bottom = 200.0
+margin_left = 212.0
+margin_top = 100.0
+margin_right = 812.0
+margin_bottom = 500.0
 rect_min_size = Vector2( 600, 400 )
 color = Color( 0.96, 0.93, 0.85, 1 )
 
@@ -64,20 +64,20 @@ margin_bottom = -35.0
 
 [node name="TitleLabel" type="Label" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
 margin_right = 235.0
-margin_bottom = 20.0
+margin_bottom = 14.0
 custom_colors/font_color = Color( 0.2, 0.15, 0.1, 1 )
 text = "Titre du Livre"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
-margin_top = 24.0
+margin_top = 18.0
 margin_right = 235.0
-margin_bottom = 28.0
+margin_bottom = 22.0
 
 [node name="LeftText" type="Label" parent="Control/BookContainer/BookPanel/LeftPage/LeftContent"]
-margin_top = 32.0
+margin_top = 26.0
 margin_right = 235.0
-margin_bottom = 280.0
+margin_bottom = 310.0
 size_flags_vertical = 3
 custom_colors/font_color = Color( 0.15, 0.12, 0.08, 1 )
 text = "Page gauche..."
@@ -162,4 +162,3 @@ margin_bottom = -15.0
 custom_colors/font_color = Color( 0.8, 0.8, 0.8, 1 )
 text = "Appuyez sur [E] ou [Échap] pour fermer  •  Flèches ou boutons pour tourner les pages"
 align = 1
-

@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/image.png" type="Texture" id=1]
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Book.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/pnjSprites.png" type="Texture" id=4]
 [ext_resource path="res://assets/pnjSprites2.png" type="Texture" id=5]
+[ext_resource path="res://Director.tscn" type="PackedScene" id=6]
+[ext_resource path="res://DialogueUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ProfMaths.tscn" type="PackedScene" id=9]
+[ext_resource path="res://AdminSys.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ElevesWindows.tscn" type="PackedScene" id=11]
+[ext_resource path="res://EleveEcolo.tscn" type="PackedScene" id=12]
 
 [node name="Node2D" type="Node2D"]
 
@@ -44,12 +50,16 @@ ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 fffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggg"
 
-[node name="Directeur" type="Sprite" parent="."]
+[node name="Directeur" parent="." instance=ExtResource( 6 )]
 position = Vector2( 343, 71 )
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Directeur2" type="Sprite" parent="."]
+position = Vector2( 345, 63 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 region_enabled = true
-region_rect = Rect2( 697.327, 3.67345, 56.4677, 91.8882 )
+region_rect = Rect2( 609, 3, 60, 91 )
 
 [node name="Professeur1" type="Sprite" parent="."]
 position = Vector2( -260, -126 )
@@ -106,3 +116,17 @@ scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
+
+[node name="ProfMaths" parent="." instance=ExtResource( 9 )]
+position = Vector2( -117, -163 )
+
+[node name="AdminSys" parent="." instance=ExtResource( 10 )]
+position = Vector2( -18, -159 )
+
+[node name="DialogueUI" parent="." instance=ExtResource( 7 )]
+
+[node name="ElevesWindows" parent="." instance=ExtResource( 11 )]
+position = Vector2( 155, 60 )
+
+[node name="EleveEcolo" parent="." instance=ExtResource( 12 )]
+position = Vector2( 50, 150 )

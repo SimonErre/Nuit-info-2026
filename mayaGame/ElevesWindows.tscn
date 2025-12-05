@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ElevesWindows.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 50.0
+
+[node name="ElevesWindows" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -24.0
+margin_top = -32.0
+margin_right = 96.0
+margin_bottom = -12.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "👥 Fans de Windows"
+align = 1
+
+[node name="InteractionHint" type="Label" parent="."]
+visible = false
+margin_left = -30.0
+margin_top = 30.0
+margin_right = 90.0
+margin_bottom = 50.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "[E] Parler"
+align = 1
