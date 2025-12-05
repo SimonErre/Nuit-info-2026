@@ -145,6 +145,7 @@ export const HeroFake = () => {
                 <div
                     ref={contentRef}
                     className="text-center z-10 px-4"
+                    style={{ willChange: 'transform, opacity, filter' }}
                 >
                     <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 relative inline-block">
                         Le Futur <span className="relative inline-block">
@@ -164,13 +165,18 @@ export const HeroFake = () => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     className="opacity-0"
+                                    style={{ willChange: 'stroke-dashoffset, opacity' }}
                                 />
                             </svg>
                         </span>.
                         <span
                             ref={annotationRef}
                             className="absolute top-0 left-full ml-6 text-4xl md:text-5xl text-[#ff0000] whitespace-nowrap opacity-0"
-                            style={{ fontFamily: "'Permanent Marker', cursive", transform: 'rotate(-20deg) scale(0.5)' }}
+                            style={{
+                                fontFamily: "'Permanent Marker', cursive",
+                                transform: 'rotate(-20deg) scale(0.5)',
+                                willChange: 'transform, opacity'
+                            }}
                         >
                             ou pas
                         </span>
@@ -194,6 +200,7 @@ export const HeroFake = () => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     className="opacity-0"
+                                    style={{ willChange: 'stroke-dashoffset, opacity' }}
                                 />
                             </svg>
                             <span
@@ -202,7 +209,8 @@ export const HeroFake = () => {
                                 style={{
                                     fontFamily: "'Permanent Marker', cursive",
                                     transform: 'rotate(5deg) scale(0.5) translateX(-50%)',
-                                    textShadow: '2px 2px 0px rgba(0,0,0,0.1)'
+                                    textShadow: '2px 2px 0px rgba(0,0,0,0.1)',
+                                    willChange: 'transform, opacity'
                                 }}
                             >
                                 L'Obsolescence

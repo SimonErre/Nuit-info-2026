@@ -17,7 +17,7 @@ const dataPoints = [
     { text: "Déchets électroniques.", color: "#ffffff", glow: "rgba(255, 255, 255, 0.5)", top: -30, left: 20, size: "clamp(4rem, 6vw, 5rem)" },
     { text: "Sécurité compromise.", color: "#ff5555", glow: "rgba(255, 85, 85, 0.8)", top: 20, left: -25, size: "clamp(3rem, 6vw, 4rem)" },
     { text: "Inégalité numérique.", color: "#ff8800", glow: "rgba(255, 136, 0, 0.8)", top: 20, left: 25, size: "clamp(8rem, 5vw, 4rem)" },
-    { text: "Pollution accrue.", color: "#ff0000", glow: "rgba(255, 0, 0, 0.9)", top: -5, left: -15, size: "clamp(8rem, 7vw, 6rem)" },
+    { text: "Pollution accrue.", color: "#ff0000", glow: "rgba(255, 0, 0, 0.9)", top: -40, left: -50, size: "clamp(8rem, 7vw, 6rem)" },
 ];
 
 export const RealityCheck = () => {
@@ -110,7 +110,8 @@ export const RealityCheck = () => {
                                 color: item.color,
                                 textShadow: `0 0 15px ${item.glow}, 0 0 40px ${item.glow}, 0 0 80px ${item.glow}, 0 4px 8px rgba(0,0,0,0.9)`,
                                 WebkitTextStroke: '2px rgba(0,0,0,0.5)',
-                                opacity: 0 // Initial state handled by GSAP
+                                opacity: 0, // Initial state handled by GSAP
+                                willChange: 'transform, opacity, filter'
                             }}
                         >
                             {item.text}
@@ -120,7 +121,7 @@ export const RealityCheck = () => {
             </div>
 
             {/* Solution / CTA Layer */}
-            <div ref={ctaRef} className="relative z-20 text-center px-6 max-w-4xl opacity-0">
+            <div ref={ctaRef} className="relative z-20 text-center px-6 max-w-4xl opacity-0" style={{ willChange: 'transform, opacity' }}>
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
                     Arrêtez le massacre.
                 </h2>
