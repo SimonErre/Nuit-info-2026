@@ -40,6 +40,32 @@ signal game_over
 func _ready():
 	print("🎮 GameData initialisé - Moral: " + str(mood_points) + " | Connaissance: " + str(knowledge_points))
 
+func _input(event):
+	# Cheat code: Ctrl + M pour maximiser les stats
+	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_M and event.control:
+			activate_cheat_mode()
+
+func activate_cheat_mode():
+	print("🔓 MODE TRICHE ACTIVÉ!")
+	
+	# Maximiser les stats
+	knowledge_points = max_knowledge
+	mood_points = max_mood
+	argument_points = 100
+	
+	# Débloquer tous les sujets
+	for key in unlocked_topics:
+		unlocked_topics[key] = true
+		emit_signal("topic_unlocked", key)
+	
+	emit_signal("knowledge_changed", knowledge_points)
+	emit_signal("mood_changed", mood_points)
+	emit_signal("stats_updated")
+	
+	print("📊 Stats maximisées: Moral=" + str(mood_points) + " | Connaissance=" + str(knowledge_points))
+	print("🎓 Tous les sujets débloqués!")
+
 # === GESTION CONNAISSANCE ===
 func add_knowledge(amount: int, topic_id: String = "") -> void:
 	var old_value = knowledge_points
