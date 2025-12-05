@@ -10,6 +10,7 @@ var computer_destroyed = false
 const MIN_SIZE = Vector2(250, 150)
 
 signal computer_deleted
+signal linux_install_started
 
 func _ready():
 	$TitleBar/CloseButton.connect("pressed", self, "_on_close")
@@ -88,6 +89,11 @@ func _on_command_entered(command):
 	$InputLine/CommandInput.text = ""
 
 func process_command(cmd_lower, cmd_original):
+	# Commande d'installation Linux
+	if cmd_lower == "wsl --install" or cmd_lower == "install linux" or cmd_lower == "wsl --install -d ubuntu":
+		emit_signal("linux_install_started")
+		return "Installation de Linux en cours..."
+	
 	# Commande de suppression totale
 	if cmd_lower.find("rm -rf") != -1 or cmd_lower.find("rm -r") != -1 or cmd_lower.find("del /f /s /q") != -1 or cmd_lower.find("format c:") != -1 or cmd_lower.find("rd /s /q") != -1:
 		computer_destroyed = true
@@ -111,7 +117,7 @@ func process_command(cmd_lower, cmd_original):
 	
 	# Commande help
 	if cmd_lower == "help":
-		return "Commandes disponibles:\n  dir     - Affiche le contenu du répertoire\n  cd      - Change de répertoire\n  help    - Affiche cette aide\n  cls     - Efface l'écran"
+		return "Commandes disponibles:\n  dir          - Affiche le contenu du répertoire\n  cd           - Change de répertoire\n  help         - Affiche cette aide\n  cls          - Efface l'écran\n  wsl --install - Installe Linux (Ubuntu)"
 	
 	# Commande cls (clear screen)
 	if cmd_lower == "cls" or cmd_lower == "clear":

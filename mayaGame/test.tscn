@@ -4,7 +4,6 @@
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Book.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/pnjSprites.png" type="Texture" id=4]
-[ext_resource path="res://assets/pnjSprites2.png" type="Texture" id=5]
 [ext_resource path="res://Computer.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
@@ -62,21 +61,18 @@ region_rect = Rect2( 699.624, 187.079, 50.2305, 94.1213 )
 [node name="Professeur2" type="Sprite" parent="."]
 position = Vector2( -117, -163 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 1936.46, 852.903, 104.72, 203.094 )
 
 [node name="Professeur3" type="Sprite" parent="."]
 position = Vector2( -18, -159 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 32.1826, 434.56, 92.0803, 193.983 )
 
 [node name="Professeur4" type="Sprite" parent="."]
 position = Vector2( 312, 176 )
 scale = Vector2( 0.22, 0.22 )
-texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 1271.69, 19.7995, 127.685, 191.527 )
 
