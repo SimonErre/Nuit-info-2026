@@ -13,8 +13,59 @@ var unlocked_topics: Dictionary = {
 	"rgpd": false,
 	"ecology": false,
 	"sovereignty": false,
-	"accessibility": false
+	"accessibility": false,
+	"reconditioning": false
 }
+
+# === QUÊTE DE RECONDITIONNEMENT ===
+var recondition_quest_active: bool = false
+var recondition_quest_completed: bool = false
+var recondition_steps: Dictionary = {
+	"step_collect_pc": false,        # Étape 1: Récupérer un vieux PC
+	"step_erase_data": false,        # Étape 2: Effacer les données (RGPD)
+	"step_repair": false,            # Étape 3: Nettoyer et réparer
+	"step_deliver": false            # Étape 4: Livrer le PC
+}
+
+func start_recondition_quest() -> void:
+	recondition_quest_active = true
+	print("🌱 Quête de reconditionnement démarrée!")
+
+func complete_recondition_step(step_id: String) -> bool:
+	if step_id in recondition_steps and not recondition_steps[step_id]:
+		recondition_steps[step_id] = true
+		print("✅ Étape complétée: " + step_id)
+		emit_signal("stats_updated")
+		return true
+	return false
+
+func is_recondition_step_done(step_id: String) -> bool:
+	return recondition_steps.get(step_id, false)
+
+func get_current_recondition_step() -> String:
+	if not recondition_steps["step_collect_pc"]:
+		return "step_collect_pc"
+	elif not recondition_steps["step_erase_data"]:
+		return "step_erase_data"
+	elif not recondition_steps["step_repair"]:
+		return "step_repair"
+	elif not recondition_steps["step_deliver"]:
+		return "step_deliver"
+	else:
+		return "completed"
+
+func get_recondition_progress() -> int:
+	var count = 0
+	for step in recondition_steps:
+		if recondition_steps[step]:
+			count += 1
+	return count
+
+func is_recondition_quest_complete() -> bool:
+	for step in recondition_steps:
+		if not recondition_steps[step]:
+			return false
+	return true
 
 # === STATISTIQUES DE COMBAT ===
 var combo_count: int = 0
@@ -235,6 +286,12 @@ func reset_all() -> void:
 	
 	for key in unlocked_topics:
 		unlocked_topics[key] = false
+	
+	# Reset quête reconditionnement
+	recondition_quest_active = false
+	recondition_quest_completed = false
+	for step in recondition_steps:
+		recondition_steps[step] = false
 	
 	emit_signal("stats_updated")
 	print("🔄 Partie réinitialisée")
