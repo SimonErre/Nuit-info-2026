@@ -1,0 +1,121 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://QuestPCUI.gd" type="Script" id=1]
+
+[node name="QuestPCUI" type="CanvasLayer"]
+pause_mode = 2
+layer = 100
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+pause_mode = 2
+
+[node name="Background" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.05, 0.05, 0.1, 0.85 )
+
+[node name="Panel" type="Panel" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -150.0
+margin_right = 250.0
+margin_bottom = 150.0
+
+[node name="PanelBG" type="ColorRect" parent="Control/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.12, 0.15, 0.2, 1 )
+
+[node name="Title" type="Label" parent="Control/Panel"]
+anchor_right = 1.0
+margin_top = 15.0
+margin_bottom = 45.0
+custom_colors/font_color = Color( 0.5, 0.8, 1, 1 )
+text = "Titre"
+align = 1
+valign = 1
+
+[node name="MessagePanel" type="Control" parent="Control/Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+
+[node name="Message" type="Label" parent="Control/Panel/MessagePanel"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 180.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Message"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="CloseButton" type="Button" parent="Control/Panel/MessagePanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -60.0
+margin_top = 200.0
+margin_right = 60.0
+margin_bottom = 235.0
+text = "OK"
+
+[node name="ErasePanel" type="Control" parent="Control/Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+
+[node name="StatusLabel" type="Label" parent="Control/Panel/ErasePanel"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Prêt à effacer les données..."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Panel/ErasePanel"]
+margin_left = 30.0
+margin_top = 100.0
+margin_right = 470.0
+margin_bottom = 130.0
+max_value = 100.0
+value = 0.0
+
+[node name="StartButton" type="Button" parent="Control/Panel/ErasePanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 150.0
+margin_right = 100.0
+margin_bottom = 190.0
+text = "🔒 Lancer l'effacement"
+
+[node name="CloseHint" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -40.0
+margin_right = 150.0
+margin_bottom = -20.0
+custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
+text = "[Echap] pour fermer"
+align = 1
+
+[connection signal="pressed" from="Control/Panel/MessagePanel/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Control/Panel/ErasePanel/StartButton" to="." method="_on_StartButton_pressed"]

@@ -91,6 +91,9 @@ func _on_command_entered(command):
 func process_command(cmd_lower, cmd_original):
 	# Commande d'installation Linux
 	if cmd_lower == "wsl --install" or cmd_lower == "install linux" or cmd_lower == "wsl --install -d ubuntu":
+		# Bloquer l'installation si la quête est active et que l'effacement n'est pas fait
+		if GameData.recondition_quest_active and not GameData.is_recondition_step_done("step_erase_data"):
+			return "⚠️ ERREUR: Impossible d'installer Linux.\n\nLes données personnelles doivent d'abord être effacées\npour respecter le RGPD.\n\nUtilisez le panneau 'Effacer les données' avant d'installer."
 		emit_signal("linux_install_started")
 		return "Installation de Linux en cours..."
 	
