@@ -21,10 +21,21 @@ const dataPoints = [
 ];
 
 export const RealityCheck = () => {
+    const [showIframe, setShowIframe] = useState(false);
+    // Empêche le scroll quand l'iframe est affiché
+    useLayoutEffect(() => {
+        if (showIframe) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showIframe]);
     const containerRef = useRef<HTMLDivElement>(null);
     const textsRef = useRef<(HTMLDivElement | null)[]>([]);
     const ctaRef = useRef<HTMLDivElement>(null);
-    const [showIframe, setShowIframe] = useState(false);
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
@@ -142,21 +153,20 @@ export const RealityCheck = () => {
 
             {/* Iframe du jeu Godot */}
             {showIframe && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
-                    <div className="relative w-full max-w-4xl h-[80vh]">
-                        <iframe
-                            src=""
-                            title="Jeu Godot"
-                            className="w-full h-full rounded-lg shadow-lg border-4 border-green-400"
-                            allowFullScreen
-                        />
-                        <button
-                            className="absolute top-2 right-2 px-4 py-2 bg-green-400 text-black rounded-full font-bold"
-                            onClick={() => setShowIframe(false)}
-                        >
-                            Fermer
-                        </button>
-                    </div>
+                <div className="fixed inset-0 z-50 bg-black bg-opacity-90">
+                    <iframe
+                        src="/game/maya.html"
+                        title="Jeu Godot"
+                        className="absolute top-0 left-0 w-screen h-screen"
+                        style={{ border: 'none', margin: 0, padding: 0 }}
+                        allowFullScreen
+                    />
+                    <button
+                        className="absolute top-4 right-4 px-6 py-3 bg-green-400 text-black rounded-full font-bold z-50"
+                        onClick={() => setShowIframe(false)}
+                    >
+                        Fermer
+                    </button>
                 </div>
             )}
         </div>
