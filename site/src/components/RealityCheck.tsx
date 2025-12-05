@@ -17,7 +17,7 @@ const dataPoints = [
     { text: "Déchets électroniques.", color: "#ffffff", glow: "rgba(255, 255, 255, 0.5)", top: -30, left: 20, size: "clamp(4rem, 6vw, 5rem)" },
     { text: "Sécurité compromise.", color: "#ff5555", glow: "rgba(255, 85, 85, 0.8)", top: 20, left: -25, size: "clamp(3rem, 6vw, 4rem)" },
     { text: "Inégalité numérique.", color: "#ff8800", glow: "rgba(255, 136, 0, 0.8)", top: 20, left: 25, size: "clamp(8rem, 5vw, 4rem)" },
-    { text: "Pollution accrue.", color: "#ff0000", glow: "rgba(255, 0, 0, 0.9)", top: -5, left: -15, size: "clamp(8rem, 7vw, 6rem)" },
+    { text: "Pollution accrue.", color: "#ff0000", glow: "rgba(255, 0, 0, 0.9)", top: -40, left: -50, size: "clamp(8rem, 7vw, 6rem)" },
 ];
 
 export const RealityCheck = () => {
