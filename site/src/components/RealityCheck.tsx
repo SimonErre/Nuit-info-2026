@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
@@ -24,6 +24,7 @@ export const RealityCheck = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const textsRef = useRef<(HTMLDivElement | null)[]>([]);
     const ctaRef = useRef<HTMLDivElement>(null);
+    const [showIframe, setShowIframe] = useState(false);
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
@@ -131,12 +132,33 @@ export const RealityCheck = () => {
 
                 <button
                     className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full text-lg font-bold tracking-wide overflow-hidden transition-all hover:bg-green-400 hover:scale-105 active:scale-95"
+                    onClick={() => setShowIframe(true)}
                 >
                     <span className="relative z-10">REJOINDRE LE MOUVEMENT</span>
                     <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                     <div className="absolute inset-0 bg-green-400 opacity-0 group-hover:opacity-20 transition-opacity blur-lg" />
                 </button>
             </div>
+
+            {/* Iframe du jeu Godot */}
+            {showIframe && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+                    <div className="relative w-full max-w-4xl h-[80vh]">
+                        <iframe
+                            src=""
+                            title="Jeu Godot"
+                            className="w-full h-full rounded-lg shadow-lg border-4 border-green-400"
+                            allowFullScreen
+                        />
+                        <button
+                            className="absolute top-2 right-2 px-4 py-2 bg-green-400 text-black rounded-full font-bold"
+                            onClick={() => setShowIframe(false)}
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
