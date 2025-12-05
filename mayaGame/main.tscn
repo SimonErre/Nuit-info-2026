@@ -16,6 +16,7 @@
 [ext_resource path="res://FemmeInfo.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/soundtrack_08_24.mp3" type="AudioStream" id=15]
 [ext_resource path="res://TableLetter.tscn" type="PackedScene" id=16]
+[ext_resource path="res://VideoPC.tscn" type="PackedScene" id=17]
 
 [node name="Node2D" type="Node2D"]
 
@@ -514,7 +515,5 @@ Le respect de la vie privée est l’un de ses points forts. Linux ne collecte p
 
 Enfin, installer Linux est présenté ici de façon simple pour l’exemple : il suffirait, dans cette version imaginaire du livre, d’ouvrir l’invite de commande Windows et de taper \"install linux\" puis d’appuyer sur Entrée pour que l’installation commence automatiquement."
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 15 )
-volume_db = -10.0
-autoplay = true
+[node name="VideoPC" parent="." instance=ExtResource( 17 )]
+position = Vector2( 303, -172 )
