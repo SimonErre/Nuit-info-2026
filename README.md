@@ -181,11 +181,7 @@ Ce jeu sensibilise aux thématiques suivantes :
 ## 🚀 Lancer le Jeu
 
 ### Version Web
-Ouvrez le fichier `maya.html` dans un navigateur web moderne.
-
-### Version Godot
-1. Ouvrez le projet dans Godot Engine 3.x
-2. Lancez la scène `main.tscn`
+Rendez-vous sur https://mayalabeille.vercel.app
 
 ---
 
