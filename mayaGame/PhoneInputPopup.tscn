@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://PhoneInputPopup.gd" type="Script" id=1]
+
+[node name="PhoneInputPopup" type="CanvasLayer"]
+layer = 100
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -350.0
+margin_right = 300.0
+margin_bottom = 350.0
+script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="Panel"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 580.0
+margin_bottom = 40.0
+text = "⚙️ PARAMÈTRES - Vérification de sécurité"
+align = 1
+
+[node name="Instruction" type="Label" parent="Panel"]
+margin_left = 20.0
+margin_top = 45.0
+margin_right = 580.0
+margin_bottom = 90.0
+text = "Pour accéder aux paramètres, veuillez entrer votre numéro de téléphone
+en utilisant le cadran rotatif ci-dessous (format: 06XXXXXXXX)"
+align = 1
+autowrap = true
+
+[node name="PhoneDisplay" type="Label" parent="Panel"]
+margin_left = 100.0
+margin_top = 95.0
+margin_right = 500.0
+margin_bottom = 130.0
+text = "Numéro: _ _ _ _ _ _ _ _ _ _"
+align = 1
+
+[node name="DialArea" type="Control" parent="Panel"]
+margin_left = 100.0
+margin_top = 140.0
+margin_right = 500.0
+margin_bottom = 540.0
+
+[node name="StatusLabel" type="Label" parent="Panel"]
+margin_left = 20.0
+margin_top = 550.0
+margin_right = 580.0
+margin_bottom = 580.0
+text = "Tournez le cadran jusqu'au chiffre désiré, puis relâchez"
+align = 1
+
+[node name="HintLabel" type="Label" parent="Panel"]
+margin_left = 20.0
+margin_top = 585.0
+margin_right = 580.0
+margin_bottom = 620.0
+custom_colors/font_color = Color( 1, 0.5, 0.5, 1 )
+text = ""
+align = 1
+
+[node name="BackspaceButton" type="Button" parent="Panel"]
+margin_left = 150.0
+margin_top = 625.0
+margin_right = 300.0
+margin_bottom = 655.0
+text = "← Effacer"
+
+[node name="CloseButton" type="Button" parent="Panel"]
+margin_left = 310.0
+margin_top = 625.0
+margin_right = 450.0
+margin_bottom = 655.0
+text = "Fermer"
+
+[node name="DialSound" type="AudioStreamPlayer" parent="Panel"]
+volume_db = -5.0
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="Panel"]
+volume_db = -10.0

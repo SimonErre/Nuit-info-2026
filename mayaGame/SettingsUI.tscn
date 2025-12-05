@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://SettingsButton.gd" type="Script" id=1]
+
+[node name="SettingsUI" type="CanvasLayer"]
+
+[node name="SettingsButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -55.0
+margin_top = -55.0
+margin_right = -10.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 45, 45 )
+hint_tooltip = "Paramètres"
+script = ExtResource( 1 )
+text = "⚙"
