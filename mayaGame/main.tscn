@@ -5,9 +5,9 @@
 [ext_resource path="res://Book.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/pnjSprites.png" type="Texture" id=4]
 [ext_resource path="res://Computer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/pnjSprites2.png" type="Texture" id=8]
 [ext_resource path="res://Director.tscn" type="PackedScene" id=6]
 [ext_resource path="res://DialogueUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ComputerSnake.gd" type="Script" id=8]
 [ext_resource path="res://ProfMaths.tscn" type="PackedScene" id=9]
 [ext_resource path="res://AdminSys.tscn" type="PackedScene" id=10]
 [ext_resource path="res://ElevesWindows.tscn" type="PackedScene" id=11]
@@ -450,7 +450,7 @@ region_enabled = true
 region_rect = Rect2( 526.604, 373.607, 50.8453, 94.3572 )
 
 [node name="Computer" parent="." instance=ExtResource( 5 )]
-position = Vector2( 162, -132 )
+position = Vector2( 163, -128 )
 
 [node name="ProfMaths" parent="." instance=ExtResource( 9 )]
 position = Vector2( -117, -163 )
@@ -465,3 +465,7 @@ position = Vector2( 155, 60 )
 
 [node name="EleveEcolo" parent="." instance=ExtResource( 12 )]
 position = Vector2( 50, 150 )
+
+[node name="Computer2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 257, 209 )
+script = ExtResource( 8 )
