@@ -401,8 +401,8 @@ func _start_snake_game():
 	_select_random_shape()
 
 func _select_random_shape():
-	# Niveau 2 = forme complexe aléatoire finale!
-	if shapes_completed >= 1:
+	# Niveau 4 = forme complexe aléatoire finale!
+	if shapes_completed >= 3:
 		current_shape = _generate_complex_random_shape()
 		print("[FINAL CHALLENGE] Forme complexe générée: ", current_shape["name"])
 	else:

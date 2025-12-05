@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/image.png" type="Texture" id=1]
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://FemmeInfo.tscn" type="PackedScene" id=16]
 [ext_resource path="res://TableLetter.tscn" type="PackedScene" id=17]
 [ext_resource path="res://VideoPC.tscn" type="PackedScene" id=18]
+[ext_resource path="res://SettingsButton.gd" type="Script" id=19]
+[ext_resource path="res://assets/settings.png" type="Texture" id=20]
 
 [node name="Node2D" type="Node2D"]
 
@@ -371,25 +373,8 @@ one_way_collision_margin = 2.0
 
 [node name="Book" parent="." instance=ExtResource( 3 )]
 position = Vector2( -290, 54 )
-book_title = "Livre de zemel"
-book_content = "Ce livre contient des secrets anciens et mystérieux que seuls les plus courageux peuvent découvrir.
-
-Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
-
-On raconte que celui qui lira tous les livres de cette bibliothèque découvrira un secret capable de changer le monde.
-
-Mais attention, car certains savoirs sont dangereux... Cherchez bien, et vous trouverez peut-être la vérité que vous cherchez.
-Les mystères de la bibliothèque sont nombreux. Chaque étagère renferme des connaissances oubliées depuis des siècles.
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-
-cccccccccccccccccccccccccccccccccccc
-
-ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-fffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggg"
+book_title = "Se détacher de Windows"
+book_content = "Se détacher de Windows, ce n’est pas forcément abandonner tout ce que l’on connaît : c’est plutôt découvrir qu’il existe d’autres façons d’utiliser son ordinateur, plus libres et souvent plus simples. Beaucoup de personnes pensent être \"coincées\" avec Windows parce qu’elles ont toujours utilisé Word, Excel ou les logiciels préinstallés, mais en réalité, des alternatives existent… et fonctionnent très bien.\n\nL’une des premières étapes de cette transition consiste à remplacer les logiciels propriétaires par des solutions libres. Par exemple, LibreOffice permet de faire tout ce que l’on ferait avec Word, Excel ou PowerPoint, sans payer, sans abonnement, et sans dépendre d’un seul système. Il ouvre les fichiers .docx, crée des PDF, met en forme des documents complexes et propose même des outils avancés pour les utilisateurs exigeants. Beaucoup découvrent qu’au quotidien, ils n’ont rien à perdre… et beaucoup à gagner.\n\nSe détacher de Windows, c’est aussi reprendre le contrôle de son environnement numérique. Sur d’autres systèmes, comme Linux, les mises à jour sont plus transparentes, les logiciels ne s’installent pas en secret et l’ordinateur ne ralentit pas avec le temps. On choisit ce que l’on installe, ce que l’on fait tourner, et même l’apparence de son interface. C’est une forme de liberté numérique qui surprend agréablement ceux qui n’ont connu que Windows.\n\nCe changement permet également de réduire la dépendance aux logiciels propriétaires qui imposent leurs règles et leurs formats. En adoptant des logiciels libres, on utilise des outils qui respectent les utilisateurs et leurs données. C’est aussi une façon de prolonger la vie d’un ordinateur : là où Windows peut ralentir ou devenir lourd, d’autres systèmes restent légers et stables.\n\nAu final, se détacher de Windows ne signifie pas \"tout changer brutalement\", mais simplement ouvrir la porte à d’autres possibilités. On commence par remplacer Word par LibreOffice, puis on découvre qu’on peut naviguer différemment, installer des logiciels libres, personnaliser son environnement… et petit à petit, on réalise qu’on n’a plus vraiment besoin de revenir en arrière."
 
 [node name="Directeur" parent="." instance=ExtResource( 6 )]
 position = Vector2( 343, 71 )
@@ -443,7 +428,6 @@ region_enabled = true
 region_rect = Rect2( 16.5052, 278.887, 51.7179, 95.8936 )
 
 [node name="FemmeInfo" parent="." instance=ExtResource( 16 )]
-[node name="FemmeInfo" parent="." instance=ExtResource( 13 )]
 position = Vector2( 262, -91 )
 
 [node name="Etudiant2" type="Sprite" parent="."]
@@ -505,30 +489,31 @@ position = Vector2( -310, -99 )
 position = Vector2( -232, -129 )
 
 [node name="ObsoletePC4" parent="." instance=ExtResource( 15 )]
-[node name="ObsoletePC" parent="." instance=ExtResource( 8 )]
-position = Vector2( -306, -127 )
-
-[node name="ObsoletePC2" parent="." instance=ExtResource( 8 )]
-position = Vector2( -310, -99 )
-
-[node name="ObsoletePC3" parent="." instance=ExtResource( 8 )]
-position = Vector2( -232, -129 )
-
-[node name="ObsoletePC4" parent="." instance=ExtResource( 8 )]
 position = Vector2( -231, -96 )
 
 [node name="Book2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -158, 161 )
 book_title = "Pourquoi choisir Linux ?"
-book_content = "Linux est un système d’exploitation libre et accessible à tous. Il se distingue par sa philosophie ouverte : chacun peut l’utiliser, le partager ou même le modifier. Cette liberté lui permet d’évoluer rapidement grâce à une vaste communauté passionnée.
+book_content = "Linux est un système d’exploitation libre et accessible à tous. Il se distingue par sa philosophie ouverte : chacun peut l’utiliser, le partager ou même le modifier. Cette liberté lui permet d’évoluer rapidement grâce à une vaste communauté passionnée.\n\nUn autre avantage majeur de Linux est sa stabilité. Contrairement à certains systèmes qui deviennent lents ou instables avec le temps, Linux reste fluide et fiable, même après de longues périodes d’utilisation. Beaucoup de serveurs dans le monde fonctionnent sous Linux précisément pour cette raison.\n\nLinux est également rapide et léger, ce qui en fait un excellent choix pour redonner vie à des ordinateurs anciens. Certaines versions spécialement optimisées peuvent faire tourner correctement des machines qui seraient inutilisables ailleurs.\n\nLe respect de la vie privée est l’un de ses points forts. Linux ne collecte pas vos données personnelles et vous laisse un contrôle total sur ce qui s’exécute sur votre machine. C’est un environnement où la transparence prime.\n\nEnfin, installer Linux est présenté ici de façon simple pour l’exemple : il suffirait, dans cette version imaginaire du livre, d’ouvrir l’invite de commande Windows et de taper \"install linux\" puis d’appuyer sur Entrée pour que l’installation commence automatiquement."
 
-Un autre avantage majeur de Linux est sa stabilité. Contrairement à certains systèmes qui deviennent lents ou instables avec le temps, Linux reste fluide et fiable, même après de longues périodes d’utilisation. Beaucoup de serveurs dans le monde fonctionnent sous Linux précisément pour cette raison.
 
-Linux est également rapide et léger, ce qui en fait un excellent choix pour redonner vie à des ordinateurs anciens. Certaines versions spécialement optimisées peuvent faire tourner correctement des machines qui seraient inutilisables ailleurs.
+[node name="SettingsUI" type="CanvasLayer" parent="."]
 
-Le respect de la vie privée est l’un de ses points forts. Linux ne collecte pas vos données personnelles et vous laisse un contrôle total sur ce qui s’exécute sur votre machine. C’est un environnement où la transparence prime.
-
-Enfin, installer Linux est présenté ici de façon simple pour l’exemple : il suffirait, dans cette version imaginaire du livre, d’ouvrir l’invite de commande Windows et de taper \"install linux\" puis d’appuyer sur Entrée pour que l’installation commence automatiquement."
+[node name="SettingsButton" type="TextureButton" parent="SettingsUI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_top = -60.0
+margin_right = -10.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 50, 50 )
+hint_tooltip = "Paramètres"
+texture_normal = ExtResource( 20 )
+expand = true
+stretch_mode = 4
+script = ExtResource( 19 )
 
 [node name="VideoPC" parent="." instance=ExtResource( 18 )]
-position = Vector2( 303, -172 )
+position = Vector2( 303, -171 )
