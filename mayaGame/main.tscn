@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/image.png" type="Texture" id=1]
 [ext_resource path="res://playeranim.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://ElevesWindows.tscn" type="PackedScene" id=11]
 [ext_resource path="res://EleveEcolo.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FemmeInfo.tscn" type="PackedScene" id=13]
+[ext_resource path="res://TableLetter.tscn" type="PackedScene" id=14]
 
 [node name="Node2D" type="Node2D"]
 
@@ -477,6 +478,10 @@ position = Vector2( 154, 70 )
 
 [node name="EleveEcolo" parent="." instance=ExtResource( 12 )]
 position = Vector2( 50, 150 )
+
+[node name="TableLetter" parent="." instance=ExtResource( 14 )]
+position = Vector2( -72, -109 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Computer2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 257, 209 )
